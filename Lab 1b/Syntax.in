@@ -1,0 +1,36 @@
+The words - predefined tokens are specified between " and ":
+
+Sytactical rules:
+
+program :: function | function "\n" program
+function ::= "FUN" string "[" decllist "]" ":" type cmpdstmt
+
+decllist ::= declaration | declaration "\n" decllist
+declaration ::= IDENTIFIER ":" type | IDENTIFIER ":" type "=" expression
+
+type1 ::= "BOOLEAN" | "character" | "INTEGER" | "ARRAY" | "STRING" | "VOID" | "CONST"
+arraydecl ::= "ARRAY" string ":" type1 "[" nr "]"
+type  ::= type1 | arraydecl
+
+cmpdstmt ::= "{" stmtlist "}"
+stmtlist ::= stmt | stmt "\n" stmtlist
+stmt ::= simplstmt | structstmt
+simplstmt ::= assignstmt | iostmt
+assignstmt ::= IDENTIFIER "->" expression
+
+expression ::= term | expression "ADD" term | expression "SUB" term
+term ::= factor | term "MUL" factor | term "DIV" factor | term "MOD" factor
+factor ::= "[" expression "]" | IDENTIFIER | number
+
+readstmt ::= "read" "[" IDENTIFIER "]"
+writestmt ::= "write" "[" IDENTIFIER "]" | "write" "[" string "," IDENTIFIER "]"
+iostmt ::= readstmt | writestmt
+
+structstmt ::= cmpdstmt | ifstmt | whilestmt | dowhilestmt | forstmt
+ifstmt ::= "IF[" condition "] {" stmt "} OTHERWISE {" stmt "}"
+whilestmt ::= "LOOPWHILE[" condition "] {" stmt "}"
+dowhilestmt ::= "LOOP[" condition "] {" stmt "} UNTIL[" condition "]\n"
+forstmt ::= "LOOPFOR[" assignstmt "\n" condition "\n" assignstmt "] {" stmt "}"
+condition ::= expression RELATION expression
+
+RELATION ::= "<" | "<=" | "<-->" | "=" | "not=" | ">" | ">=" | "and" | "or"
