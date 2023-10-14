@@ -1,6 +1,6 @@
 ~ Maximum of three integers
 
-fun start[] : void
+fn main[] : void
 {
     @a : integer -> 10
     @b : integer -> 20

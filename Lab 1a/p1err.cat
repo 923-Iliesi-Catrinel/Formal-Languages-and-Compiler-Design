@@ -1,6 +1,6 @@
 ~ Maximum of three integers with lexical errors
 
-fun start[] : void
+fn main[] : void
 ^{                              ~ ^{ is not a valid separator
     @a : integer -> 10
     @b : integer -> 20

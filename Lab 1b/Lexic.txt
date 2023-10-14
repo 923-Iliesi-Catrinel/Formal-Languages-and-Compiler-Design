@@ -13,7 +13,7 @@ a. Special symbols, representing:
     - separators: [ ] { } space
     - comments ~
     - reserved words:
-        - function ::= fun
+        - function ::= fn
         - assignment ::= ->
         - input/output ::= read/write
         - condition ::= if/otherwise

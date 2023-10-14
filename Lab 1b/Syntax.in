@@ -3,7 +3,7 @@ The words - predefined tokens are specified between " and ":
 Sytactical rules:
 
 program :: function | function "\n" program
-function ::= "FUN" string "[" decllist "]" ":" type cmpdstmt
+function ::= "FN" string "[" decllist "]" ":" type cmpdstmt
 
 decllist ::= declaration | declaration "\n" decllist
 declaration ::= IDENTIFIER ":" type | IDENTIFIER ":" type "=" expression

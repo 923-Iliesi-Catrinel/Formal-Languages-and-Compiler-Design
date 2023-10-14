@@ -1,6 +1,6 @@
 ~ Sum of n numbers
 
-fun start[] : void
+fn main[] : void
 {
     @n : integer -> 0
     @sum: integer -> 0

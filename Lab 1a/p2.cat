@@ -1,6 +1,6 @@
 ~ Check if integer is prime
 
-fun isPrime[@n : integer] : boolean
+fn isPrime[@n : integer] : boolean
 {
     if [@n <= 1]
     {
@@ -18,7 +18,7 @@ fun isPrime[@n : integer] : boolean
     ret true
 }
  
-fun start[] : void
+fn main[] : void
 {
     if [isPrime[11] <--> true]
     {
