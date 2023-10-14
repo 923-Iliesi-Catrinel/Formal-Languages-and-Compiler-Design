@@ -1,4 +1,4 @@
-Cat Programming Language Specifiion
+Cat Programming Language Specification
 
 Alphabet:
 

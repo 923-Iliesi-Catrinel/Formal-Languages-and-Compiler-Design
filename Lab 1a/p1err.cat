@@ -7,7 +7,7 @@ fn main[] : void
     @c : integer -> 40
     @max : integer -> @a
 
-    if [@max < #@b]         ~ #@b is not a valid identifier
+    if [@max < #@b]             ~ #@b is not a valid identifier
     {
         @max -> @b
     }

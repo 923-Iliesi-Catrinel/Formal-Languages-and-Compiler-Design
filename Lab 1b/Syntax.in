@@ -1,8 +1,8 @@
 The words - predefined tokens are specified between " and ":
 
-Sytactical rules:
+Syntactical rules:
 
-program :: function | function "\n" program
+program ::= function | function "\n" program
 function ::= "FN" string "[" decllist "]" ":" type cmpdstmt
 
 decllist ::= declaration | declaration "\n" decllist
