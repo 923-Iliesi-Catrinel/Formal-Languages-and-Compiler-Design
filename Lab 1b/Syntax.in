@@ -8,7 +8,7 @@ function ::= "FN" string "[" decllist "]" ":" type cmpdstmt
 decllist ::= declaration | declaration "\n" decllist
 declaration ::= IDENTIFIER ":" type | IDENTIFIER ":" type "=" expression
 
-type1 ::= "BOOLEAN" | "character" | "INTEGER" | "ARRAY" | "STRING" | "VOID" | "CONST"
+type1 ::= "BOOLEAN" | "CHARACTER" | "INTEGER" | "ARRAY" | "STRING" | "VOID" | "CONST"
 arraydecl ::= "ARRAY" string ":" type1 "[" nr "]"
 type  ::= type1 | arraydecl
 

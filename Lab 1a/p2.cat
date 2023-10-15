@@ -1,13 +1,13 @@
 ~ Check if integer is prime
 
-fn isPrime[@n : integer] : boolean
+fn isPrime[@n: integer]: boolean
 {
     if [@n <= 1]
     {
         ret false
     }
 
-    loopfor [@i : integer -> 2, @i <= n div 2, @i -> @i add 1]
+    loopfor [@i: integer -> 2, @i <= n div 2, @i -> @i add 1]
     {
         if [@n mod @i <--> 0]
         {
@@ -18,7 +18,7 @@ fn isPrime[@n : integer] : boolean
     ret true
 }
  
-fn main[] : void
+fn main[]: void
 {
     if [isPrime[11] <--> true]
     {

@@ -1,11 +1,11 @@
 ~ Maximum of three integers
 
-fn main[] : void
+fn main[]: void
 {
-    @a : integer -> 10
-    @b : integer -> 20
-    @c : integer -> 40
-    @max : integer -> @a
+    @a: integer -> 10
+    @b: integer -> 20
+    @c: integer -> 40
+    @max: integer -> @a
 
     if [@max < @b]
     {
