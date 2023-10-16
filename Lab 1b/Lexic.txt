@@ -15,8 +15,7 @@ a. Special symbols, representing:
         - logical: not and or
         - assignment: ->
     2. Separators: [ ] { } ( ) space : ,
-    3. Comments: ~ (at the beginning of each line)
-    4. Reserved words:
+    3. Reserved words:
         - main function ::= main
         - function ::= fn
         - return ::= ret
@@ -24,15 +23,16 @@ a. Special symbols, representing:
         - condition ::= if/otherwise
         - loop ::= loop until/loopfor/loopwhile/break
         - types ::= integer/boolean/character/const/void/array/string
+    4. Comments: ~ (at the beginning of each line)
 
-b. Identifiers
+b. Identifiers:
     - a sequence of maximum 255 characters composed from character "@", letters (uppercase and lowercase) and digits, starting with a letter:
         identifier ::= "@"letter | "@"letter{letter}[digit]
         letter ::= "A" | "B" | ... | "Z" | "a" | "b" | ... | "z"
         digit ::= "0" | "1" | ... | "9"
         special_char ::= " " | "!" | "?" | "(" | ")" | "[" | "] | "{" | "}" | "#" | "$" | "%" | "&" | "'" | """ |  "+" | "-" | "*" | "/" | "." | "," | ":" | ";" | "@" | "^" | "_" | "`" | "|" | "~"
 
-c. Constants
+c. Constants:
     1. Integer:
         noconst ::= "+"no | "-"no | no
         no ::= digit{no}

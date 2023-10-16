@@ -3,19 +3,21 @@ Syntactical rules of Cat Programming Language:
 Note: predefined tokens are specified between " and ":
 
 comment ::= "~" string
+comments ::= comment | comment newlines {comment}
+
 newline_win ::= "\r\n" | "\r\n"{newlines}
 newline_lin ::= "\n" | "\n"{newlines}
 newlines ::= newline_win | newline_lin
 
-program ::= [newlines] function | function newlines program
 function ::= "FN" IDENTIFIER "[" decllist "]" ":" type cmpdstmt
+program ::= [newlines] function | function newlines program
 
 decllist ::= declaration | declaration newlines decllist | declaration "," decllist
 declaration ::= IDENTIFIER ":" type | ["const"] IDENTIFIER ":" type "=" expression
 
 primitive_type::= "BOOLEAN" | "CHARACTER" | "INTEGER" | "STRING" | "VOID" | "CONST"
 arraydecl ::= IDENTIFIER ":" "ARRAY" "(" primitive_type ")" "[" nr "]"
-type  ::= primitive_type | arraydecl
+type ::= primitive_type | arraydecl
 
 cmpdstmt ::= "{" stmtlist "}"
 stmtlist ::= [comment] stmt | [comment] stmt newlines stmtlist
