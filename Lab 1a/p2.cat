@@ -1,40 +1,32 @@
-~ Check if integer is prime
-
-fn isPrime[@n: integer]: boolean
-{
-    if [@n <= 1]
-    {
-        ret false
-    }
-
-    loopfor [@i: integer -> 2, @i <= n div 2, @i -> @i add 1]
-    {
-        if [@n mod @i <--> 0]
-        {
-            ret false
-        }
-    }
- 
-    ret true
-}
- 
 fn main[]: void
 {
-    if [isPrime[11] <--> true]
+    ~ Verify if a number is prime
+    @isPrime: boolean -> true
+    @n: integer
+    read[@n]
+
+    if [@n <= 1]
     {
-        write["11 is a prime number."]
+        @isPrime -> false
     }
     otherwise
     {
-        write["11 is not a prime number."]
+        loopfor [@i: integer -> 2, @i <= n div 2, @i -> @i add 1]
+        {
+            if [@n mod @i <==> 0]
+            {
+                @isPrime -> false
+            }
+        }
+
     }
 
-    if [isPrime[5] <--> true]
+    if [isPrime <==> true]
     {
-        write["5 is a prime number."]
+        write[@n, " is a prime number."]
     }
     otherwise
     {
-        write["5 is not a prime number."]
+        write[@n, " is not a prime number."]
     }
 }

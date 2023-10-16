@@ -2,40 +2,45 @@ Cat Programming Language Specification
 
 Alphabet:
 
-a. Upper case (A-Z) and lower case (a-z) letters of the English alphabet
-b. Special characters: @ _ , : ~
+a. Uppercase (A-Z) and lowercase (a-z) letters of the English alphabet
+b. Special characters ! ? ( ) [ ] { } # $ % & ' " + - * / . , : ; @ ^ _ ` | ~
 c. Decimal digits (0-9)
 
 Lexic:
 
 a. Special symbols, representing:
-    - operators: add sub mul div mod < <= < >= = -> <--> not and or
-    - separators: [ ] { } space
-    - comments ~
-    - reserved words:
+    1. Operators: 
+        - arithmetic: add sub mul div mod
+        - relational: < <= > >= <==>
+        - logical: not and or
+        - assignment: ->
+    2. Separators: [ ] { } ( ) space : ,
+    3. Comments: ~ (at the beginning of each line)
+    4. Reserved words:
+        - main function ::= main
         - function ::= fn
-        - assignment ::= ->
+        - return ::= ret
         - input/output ::= read/write
         - condition ::= if/otherwise
         - loop ::= loop until/loopfor/loopwhile/break
         - types ::= integer/boolean/character/const/void/array/string
-        - return ::= ret
 
-b. identifiers
-    - a sequence of letters and  digits, such that the first character is @, followed by at least a letter; the rule is:
-        identifier ::= "@"letter | "@"letter{letter}{digit}
+b. Identifiers
+    - a sequence of maximum 255 characters composed from character "@", letters (uppercase and lowercase) and digits, starting with a letter:
+        identifier ::= "@"letter | "@"letter{letter}[digit]
         letter ::= "A" | "B" | ... | "Z" | "a" | "b" | ... | "z"
         digit ::= "0" | "1" | ... | "9"
+        special_char ::= " " | "!" | "?" | "(" | ")" | "[" | "] | "{" | "}" | "#" | "$" | "%" | "&" | "'" | """ |  "+" | "-" | "*" | "/" | "." | "," | ":" | ";" | "@" | "^" | "_" | "`" | "|" | "~"
 
-c. constants
-    1. integer - rule:
+c. Constants
+    1. Integer:
         noconst ::= "+"no | "-"no | no
         no ::= digit{no}
 
-    2. character
-        character ::= 'letter' | 'digit'
-
-    3. string
+    2. Character:
+        character ::= 'letter' | 'digit' | 'special_char'
+        
+    3. String:
         constchar ::= "string"
-        string ::= char{string}
-        char ::= letter | digit
+        string ::= "" | char{string}
+        char ::= letter | digit | special_char

@@ -1,13 +1,12 @@
-~ Maximum of three integers with lexical errors
-
 fn main[]: void
-^{                              ~ ^{ is not a valid separator
-    @a: integer -> 10
+^{                               ~ ^{ is not a valid separator
+    ~ Maximum of three integers with lexical errors
+    @a: integer -> 10         
     @b: integer -> 20
     @c: integer -> 40
     @max: integer -> @a
 
-    if [@max < #@b]             ~ #@b is not a valid identifier
+    if [@max < #@b]              ~ #@b is not a valid identifier
     {
         @max -> @b
     }

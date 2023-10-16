@@ -1,36 +1,42 @@
-The words - predefined tokens are specified between " and ":
+Syntactical rules of Cat Programming Language:
 
-Syntactical rules:
+Note: predefined tokens are specified between " and ":
 
-program ::= function | function "\n" program
-function ::= "FN" string "[" decllist "]" ":" type cmpdstmt
+comment ::= "~" string
+newline_win ::= "\r\n" | "\r\n"{newlines}
+newline_lin ::= "\n" | "\n"{newlines}
+newlines ::= newline_win | newline_lin
 
-decllist ::= declaration | declaration "\n" decllist
-declaration ::= IDENTIFIER ":" type | IDENTIFIER ":" type "=" expression
+program ::= [newlines] function | function newlines program
+function ::= "FN" IDENTIFIER "[" decllist "]" ":" type cmpdstmt
 
-type1 ::= "BOOLEAN" | "CHARACTER" | "INTEGER" | "ARRAY" | "STRING" | "VOID" | "CONST"
-arraydecl ::= "ARRAY" string ":" type1 "[" nr "]"
-type  ::= type1 | arraydecl
+decllist ::= declaration | declaration newlines decllist | declaration "," decllist
+declaration ::= IDENTIFIER ":" type | ["const"] IDENTIFIER ":" type "=" expression
+
+primitive_type::= "BOOLEAN" | "CHARACTER" | "INTEGER" | "STRING" | "VOID" | "CONST"
+arraydecl ::= IDENTIFIER ":" "ARRAY" "(" primitive_type ")" "[" nr "]"
+type  ::= primitive_type | arraydecl
 
 cmpdstmt ::= "{" stmtlist "}"
-stmtlist ::= stmt | stmt "\n" stmtlist
+stmtlist ::= [comment] stmt | [comment] stmt newlines stmtlist
 stmt ::= simplstmt | structstmt
 simplstmt ::= assignstmt | iostmt
 assignstmt ::= IDENTIFIER "->" expression
 
 expression ::= term | expression "ADD" term | expression "SUB" term
 term ::= factor | term "MUL" factor | term "DIV" factor | term "MOD" factor
-factor ::= "[" expression "]" | IDENTIFIER | number
+factor ::= "[" expression "]" | IDENTIFIER | nr
 
 readstmt ::= "read" "[" IDENTIFIER "]"
 writestmt ::= "write" "[" IDENTIFIER "]" | "write" "[" string "," IDENTIFIER "]"
 iostmt ::= readstmt | writestmt
 
 structstmt ::= cmpdstmt | ifstmt | whilestmt | dowhilestmt | forstmt
-ifstmt ::= "IF[" condition "] {" stmt "} OTHERWISE {" stmt "}"
-whilestmt ::= "LOOPWHILE[" condition "] {" stmt "}"
-dowhilestmt ::= "LOOP[" condition "] {" stmt "} UNTIL[" condition "]\n"
-forstmt ::= "LOOPFOR[" assignstmt "\n" condition "\n" assignstmt "] {" stmt "}"
-condition ::= expression RELATION expression
+ifstmt ::= "IF[" conditions "] {" stmt "} [OTHERWISE {" stmtlist "}"]
+whilestmt ::= "LOOPWHILE[" conditions "] {" stmtlist "}"
+dowhilestmt ::= "LOOP[" conditions "] {" stmtlist "} UNTIL[" conditions "]\n"
+forstmt ::= "LOOPFOR[" (assignstmt | declaration) "," conditions "," assignstmt "] {" stmtlist "}"
 
-RELATION ::= "<" | "<=" | "<-->" | "=" | "not=" | ">" | ">=" | "and" | "or"
+condition ::= expression RELATION expression
+conditions ::= condition | "NOT" condition | condition "AND" conditions | condition "OR" conditions
+RELATION ::= "<" | "<=" | "<==>" | "NOT=" | ">" | ">=" | "AND" | "OR"

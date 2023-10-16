@@ -1,7 +1,6 @@
-~ Maximum of three integers
-
 fn main[]: void
 {
+    ~ Maximum of three integers
     @a: integer -> 10
     @b: integer -> 20
     @c: integer -> 40
