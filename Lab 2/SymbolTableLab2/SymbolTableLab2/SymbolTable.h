@@ -5,7 +5,6 @@
 
 #include <iostream>
 
-// Symbol table
 template<typename K>
 class SymbolTable {
 private:
@@ -14,7 +13,7 @@ private:
 
 public:
     // Default constructor: creates an empty symbol table
-    SymbolTable() : table_index(0) {}
+    SymbolTable() : table_index{ 0 } {}
 
     // Adds a new entry to the symbol table
     void add(const K& key);
@@ -25,15 +24,15 @@ public:
     // Returns the index of an entry in the symbol table
     std::optional<size_t> get(const K& key) const;
 
+    size_t getSize() const;
+
     HashTable<K, size_t> getTable() const {
         return this->table;
     }
 
     size_t getSymbolTableIndex() const {
-		return this->table_index;
-	}
-
-    size_t getSize() const;
+        return this->table_index;
+    }
 
     // Removes all entries from the symbol table
     void clear();
@@ -53,7 +52,6 @@ public:
 template<typename K>
 void SymbolTable<K>::add(const K& key) {
     size_t old_size = this->getSize();
-
     this->table.add(key, this->table_index);
 
     // Increment index only if add was successful
@@ -64,7 +62,7 @@ void SymbolTable<K>::add(const K& key) {
 
 
 template<typename K>
-inline void SymbolTable<K>::remove(const K& key)
+void SymbolTable<K>::remove(const K& key)
 {
     this->table.remove(key);
 }
@@ -78,14 +76,14 @@ std::optional<size_t> SymbolTable<K>::get(const K& key) const {
 
 
 template<typename K>
-inline size_t SymbolTable<K>::getSize() const
+size_t SymbolTable<K>::getSize() const
 {
     return this->table.getSize();
 }
 
 
 template<typename K>
-inline void SymbolTable<K>::clear()
+void SymbolTable<K>::clear()
 {
     this->table.clear();
     this->table_index = 0;
