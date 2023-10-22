@@ -30,14 +30,14 @@ term ::= factor | term "MUL" factor | term "DIV" factor | term "MOD" factor
 factor ::= "[" expression "]" | IDENTIFIER | nr
 
 readstmt ::= "read" "[" IDENTIFIER "]"
-writestmt ::= "write" "[" IDENTIFIER "]" | "write" "[" string "," IDENTIFIER "]"
+writestmt ::= "write" "[" IDENTIFIER | CONSTCHAR "]" | "write" "[" CONSTCHAR "," IDENTIFIER | CONSTCHAR "]"
 iostmt ::= readstmt | writestmt
 
 structstmt ::= cmpdstmt | ifstmt | whilestmt | dowhilestmt | forstmt
 ifstmt ::= "IF[" conditions "] {" stmt "} [OTHERWISE {" stmtlist "}"]
 whilestmt ::= "LOOPWHILE[" conditions "] {" stmtlist "}"
 dowhilestmt ::= "LOOP[" conditions "] {" stmtlist "} UNTIL[" conditions "]\n"
-forstmt ::= "LOOPFOR[" (assignstmt | declaration) "," conditions "," assignstmt "] {" stmtlist "}"
+forstmt ::= "LOOPFOR[" assignstmt | declaration "," conditions "," assignstmt "] {" stmtlist "}"
 
 condition ::= expression RELATION expression
 conditions ::= condition | "NOT" condition | condition "AND" conditions | condition "OR" conditions
