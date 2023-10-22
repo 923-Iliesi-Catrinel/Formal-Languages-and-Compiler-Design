@@ -48,7 +48,6 @@ public:
     }
 };
 
-
 template<typename K>
 void SymbolTable<K>::add(const K& key) {
     size_t old_size = this->getSize();
@@ -60,13 +59,11 @@ void SymbolTable<K>::add(const K& key) {
     }
 }
 
-
 template<typename K>
 void SymbolTable<K>::remove(const K& key)
 {
     this->table.remove(key);
 }
-
 
 template<typename K>
 std::optional<size_t> SymbolTable<K>::get(const K& key) const {
@@ -74,13 +71,11 @@ std::optional<size_t> SymbolTable<K>::get(const K& key) const {
     return optValue ? *optValue : std::optional<size_t>{};
 }
 
-
 template<typename K>
 size_t SymbolTable<K>::getSize() const
 {
     return this->table.getSize();
 }
-
 
 template<typename K>
 void SymbolTable<K>::clear()
