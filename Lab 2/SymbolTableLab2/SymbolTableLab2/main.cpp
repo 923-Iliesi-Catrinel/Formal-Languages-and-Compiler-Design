@@ -16,9 +16,8 @@ int main()
     // Add a new identifier to the symbol table
     symbol_table.add("x");
 
-    // Add a new constant to the symbol table
+    // Add a new constants to the symbol table
     symbol_table.add("\"x\"");
-
     symbol_table.add("@y");
 
     assert(symbol_table.isEmpty() == false);

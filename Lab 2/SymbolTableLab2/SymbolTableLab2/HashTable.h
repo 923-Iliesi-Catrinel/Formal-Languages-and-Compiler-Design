@@ -101,6 +101,7 @@ public:
                 os << "Position: " << i << " -> {Key: " << hash_table.table[i].key << ", Value: " << hash_table.table[i].value << "}\n";
             }
         }
+
         return os;
     }
 };
