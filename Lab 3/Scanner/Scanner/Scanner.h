@@ -62,7 +62,7 @@ private:
     void readProgramFile(const std::string& program_file_path);
 
     // Parses the program file, extracting and classifying tokens
-    void parseProgram(size_t current_line);
+    void parseProgram();
 
     // Classifies and codifies a token and stores it in the Program Internal Form and Symbol Table if it's not already there
     void classifyToken(const std::string& token);

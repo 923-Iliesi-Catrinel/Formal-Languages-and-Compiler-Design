@@ -47,7 +47,7 @@ void Scanner::scan(const std::string& program_file_path) {
     this->current_line = 1;
 
     try {
-        this->parseProgram(this->current_line);
+        this->parseProgram();
     }
     catch (const std::runtime_error& e)
     {
@@ -57,7 +57,7 @@ void Scanner::scan(const std::string& program_file_path) {
     std::cout << "Finished scanning file '" << program_file_path << "'\n";
 }
 
-void Scanner::parseProgram(size_t current_line) {
+void Scanner::parseProgram() {
     std::optional<std::string> next_token;
 
     while (this->program_position < this->program.size()) {
