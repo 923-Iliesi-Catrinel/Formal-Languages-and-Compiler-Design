@@ -1,0 +1,10 @@
+Symbol Table:
+Position: 4 -> {Key: 10, Value: 2}
+Position: 7 -> {Key: @b, Value: 3}
+Position: 9 -> {Key: 40, Value: 6}
+Position: 10 -> {Key: @a, Value: 1}
+Position: 12 -> {Key: @c, Value: 5}
+Position: 13 -> {Key: @max, Value: 7}
+Position: 15 -> {Key: 20, Value: 4}
+Size: 7
+

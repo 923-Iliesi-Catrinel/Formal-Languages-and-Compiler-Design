@@ -1,0 +1,9 @@
+Symbol Table:
+Position: 2 -> {Key: @i, Value: 4}
+Position: 3 -> {Key: @n, Value: 1}
+Position: 5 -> {Key: @x, Value: 5}
+Position: 10 -> {Key: @sum, Value: 3}
+Position: 12 -> {Key: 1, Value: 6}
+Position: 15 -> {Key: 0, Value: 2}
+Size: 6
+

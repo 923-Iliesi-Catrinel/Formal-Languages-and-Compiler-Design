@@ -76,6 +76,12 @@ public:
     // Worst Case time complexity: O(n) (requires traversing the entire table)
     std::optional<V> get(const K& key) const;
 
+    // Returns true if the hash table contains the specified key, or false otherwise
+    // Best Case time complexity: O(1) (no collisions occur, key is found in initial hash position)
+    // Average Case time complexity: O(1)
+    // Worst Case time complexity: O(n) (requires traversing the entire table)
+    bool contains(const K& key) const;
+
     // Removes all key-value pairs from the hash table
     void clear();
 
@@ -101,6 +107,8 @@ public:
                 os << "Position: " << i << " -> {Key: " << hash_table.table[i].key << ", Value: " << hash_table.table[i].value << "}\n";
             }
         }
+
+        os << "Size: " << hash_table.size << "\n";
 
         return os;
     }
@@ -180,6 +188,29 @@ std::optional<V> HashTable<K, V>::get(const K& key) const {
     }
 
     return {};
+}
+
+template<typename K, typename V>
+bool HashTable<K, V>::contains(const K& key) const {
+    size_t position = this->hash1(key);
+	size_t step = this->hash2(key);
+	size_t collision_counter = 0;       // Used to avoid infinite loop when the table is full
+
+    while (collision_counter < this->capacity) {
+        if (this->table[position].key == key && this->table[position].status == EntryStatus::FILLED) {
+			return true;
+		}
+		// If the slot is empty, then the key was not found
+        if (this->table[position].status == EntryStatus::EMPTY) {
+			break;
+		}
+
+		// Find next available position using double hashing
+		position = this->probe(position, step);
+		collision_counter++;
+	}
+
+	return false;   
 }
 
 template<typename K, typename V>

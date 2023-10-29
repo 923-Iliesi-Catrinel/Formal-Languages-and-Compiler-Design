@@ -1,31 +1,28 @@
-fn main[]: void
-{
-    ~ Verify if a number is prime
-    @isPrime: boolean -> true
-    @n: integer
-    read[@n]
+~ Verify if a number is prime
+@isPrime: boolean -> true
+@n: integer
+read[@n]
 
-    if [@n <= 1]
+if [@n <= 1]
+{
+    @isPrime -> false
+}
+otherwise
+{
+    loopfor [@i: integer -> 2, @i <= @n div 2, @i -> @i add 1]
     {
-        @isPrime -> false
-    }
-    otherwise
-    {
-        loopfor [@i: integer -> 2, @i <= n div 2, @i -> @i add 1]
+        if [@n mod @i eq 0]
         {
-            if [@n mod @i <==> 0]
-            {
-                @isPrime -> false
-            }
+            @isPrime -> false
         }
     }
+}
 
-    if [isPrime <==> true]
-    {
-        write[@n, " is a prime number."]
-    }
-    otherwise
-    {
-        write[@n, " is not a prime number."]
-    }
+if [@isPrime eq true]
+{
+    write["n is a prime number."]
+}
+otherwise
+{
+    write["n is not a prime number."]
 }

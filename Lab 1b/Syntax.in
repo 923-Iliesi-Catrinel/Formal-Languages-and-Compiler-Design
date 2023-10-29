@@ -9,8 +9,7 @@ newline_win ::= "\r\n" | "\r\n"{newlines}
 newline_lin ::= "\n" | "\n"{newlines}
 newlines ::= newline_win | newline_lin
 
-function ::= "FN" IDENTIFIER "[" decllist "]" ":" type cmpdstmt
-program ::= [newlines] function | function newlines program
+program ::= stmtlist
 
 decllist ::= declaration | declaration newlines decllist | declaration "," decllist
 declaration ::= IDENTIFIER ":" type | ["const"] IDENTIFIER ":" type "=" expression
@@ -27,18 +26,17 @@ assignstmt ::= IDENTIFIER "->" expression
 
 expression ::= term | expression "ADD" term | expression "SUB" term
 term ::= factor | term "MUL" factor | term "DIV" factor | term "MOD" factor
-factor ::= "[" expression "]" | IDENTIFIER | nr
+factor ::= "[" expression "]" | IDENTIFIER | IDENTIFIER "[" number "]" | nr | character | string
 
 readstmt ::= "read" "[" IDENTIFIER "]"
-writestmt ::= "write" "[" IDENTIFIER | CONSTCHAR "]" | "write" "[" CONSTCHAR "," IDENTIFIER | CONSTCHAR "]"
+writestmt ::= "write" "[" IDENTIFIER | CONSTCHAR "]"
 iostmt ::= readstmt | writestmt
 
-structstmt ::= cmpdstmt | ifstmt | whilestmt | dowhilestmt | forstmt
+structstmt ::= cmpdstmt | ifstmt | whilestmt | forstmt
 ifstmt ::= "IF[" conditions "] {" stmt "} [OTHERWISE {" stmtlist "}"]
 whilestmt ::= "LOOPWHILE[" conditions "] {" stmtlist "}"
-dowhilestmt ::= "LOOP[" conditions "] {" stmtlist "} UNTIL[" conditions "]\n"
 forstmt ::= "LOOPFOR[" assignstmt | declaration "," conditions "," assignstmt "] {" stmtlist "}"
 
 condition ::= expression RELATION expression
-conditions ::= condition | "NOT" condition | condition "AND" conditions | condition "OR" conditions
-RELATION ::= "<" | "<=" | "<==>" | "NOT=" | ">" | ">=" | "AND" | "OR"
+conditions ::= condition | condition "AND" conditions | condition "OR" conditions
+RELATION ::= "<" | "<=" | "eq" | "noteq" | ">" | ">=" | "AND" | "OR"

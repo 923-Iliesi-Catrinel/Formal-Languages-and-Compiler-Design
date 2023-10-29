@@ -11,17 +11,14 @@ Lexic:
 a. Special symbols, representing:
     1. Operators: 
         - arithmetic: add sub mul div mod
-        - relational: < <= > >= <==>
-        - logical: not and or
+        - relational: < <= > >= eq noteq
+        - logical: and or
         - assignment: ->
     2. Separators: [ ] { } ( ) space : ,
     3. Reserved words:
-        - main function ::= main
-        - function ::= fn
-        - return ::= ret
         - input/output ::= read/write
         - condition ::= if/otherwise
-        - loop ::= loop until/loopfor/loopwhile/break
+        - loop ::= loopfor/loopwhile
         - types ::= integer/boolean/character/const/void/array/string
     4. Comments: ~ (at the beginning of each line)
 

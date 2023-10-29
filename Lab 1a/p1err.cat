@@ -1,20 +1,17 @@
-fn main[]: void
-^{                               ~ ^{ is not a valid separator
-    ~ Maximum of three integers with lexical errors
-    @a: integer -> 10         
-    @b: integer -> 20
-    @c: integer -> 40
-    @max: integer -> @a
+~ Maximum of three integers with lexical errors
+@a: integer -> 10   
+@b: integer -> 20
+@c: integer -> 40
+@max: integer -> @a
 
-    if [@max < #@b]              ~ #@b is not a valid identifier
-    {
-        @max -> @b
-    }
-        
-    if [@max < @c]         
-    {                        
-        @max -> @c
-    }
-
-    write[@max, " is the maximum number out of the 3."]
+if [@max < #@b]
+{
+    @max -> @b
 }
+
+if [@max < @c]        
+{                        
+    @max ->% @c
+}
+
+write[@max]

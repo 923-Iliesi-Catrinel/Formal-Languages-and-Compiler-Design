@@ -13,7 +13,7 @@ private:
 
 public:
     // Default constructor: creates an empty symbol table
-    SymbolTable() : table_index{ 0 } {}
+    SymbolTable() : table_index{1} {}
 
     // Adds a new entry to the symbol table
     void add(const K& key);
@@ -23,6 +23,9 @@ public:
 
     // Returns the index of an entry in the symbol table
     std::optional<size_t> get(const K& key) const;
+
+    // Returns true if the symbol table contains the given key and false otherwise
+    bool contains(const K& key) const;
 
     size_t getSize() const;
 
@@ -42,7 +45,7 @@ public:
     }
 
     friend std::ostream& operator<<(std::ostream& os, const SymbolTable<K>& table) {
-        os << "Symbol table:\n" << table.getTable() << "Size: " << table.getSize() << "\n";
+        os << table.getTable() << "\n";
 
         return os;
     }
@@ -69,6 +72,12 @@ template<typename K>
 std::optional<size_t> SymbolTable<K>::get(const K& key) const {
     auto optValue = this->table.get(key);
     return optValue ? *optValue : std::optional<size_t>{};
+}
+
+template<typename K>
+inline bool SymbolTable<K>::contains(const K& key) const
+{
+    return this->table.contains(key);
 }
 
 template<typename K>
