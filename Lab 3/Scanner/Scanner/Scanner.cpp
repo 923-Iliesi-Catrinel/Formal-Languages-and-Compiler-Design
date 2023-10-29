@@ -88,7 +88,7 @@ std::optional<std::string> Scanner::nextToken() {
     }
 
     // Character string
-    if (current_char == '\"' || current_char == '\'') {
+    if (current_char == '\'' || current_char == '\"') {
         return this->handleCharString();
     }
 
@@ -103,11 +103,6 @@ std::optional<std::string> Scanner::nextToken() {
 }
 
 void Scanner::classifyToken(const std::string& token) {
-    // Comment
-    if (token.empty()) {
-        return;
-    }
-
     // Get the token code from the reserved_tokens hash table (from the token file)
     std::optional<size_t> key_code = this->reserved_tokens.get(token);
 
@@ -144,11 +139,11 @@ void Scanner::handleWhitespaceAndLineSeparator() {
 
         if (current_char == '\n') {
             size_t key_code = this->reserved_tokens.getSize() + LINE_SEPARATOR_POSITION;
-            this->program_internal_form.push_back({ key_code, RESERVED_VALUE });
+            this->program_internal_form.push_back(std::make_pair(key_code, RESERVED_VALUE));
             this->current_line++;
         }
         else if (!std::isspace(current_char)) {
-            break;
+            return;
         }
 
         this->program_position++;
@@ -174,17 +169,15 @@ std::string Scanner::handleCharString() {
         this->program_position++;
     }
 
+    if (this->program[this->program_position] != quote) {
+        throw std::runtime_error("Unclosed char string starting at line " + std::to_string(this->current_line) + " and position " + std::to_string(start_position));
+	}
+
     if (this->program_position >= this->program.size()) {
         throw std::runtime_error("End of file reached while parsing a string constant.");
     }
 
-    if (this->program[this->program_position] == quote) {
-        token.push_back(quote);         // Add the closing quote to the token
-	}
-	else {
-		throw std::runtime_error("Unclosed char string starting at line " + std::to_string(this->current_line) + " and position " + std::to_string(start_position));
-    }
-
+    token.push_back(quote);             // Add the closing quote to the token
     this->program_position++;           // Skip the closing quote
     return token;
 }
@@ -196,14 +189,13 @@ std::string Scanner::handleReservedToken() {
         char current_char = this->program[this->program_position];
 
         // Perform a lookahead to see if the next character is also part of the reserved token
-        std::string possible_token = token + current_char;
-        if (this->reserved_tokens.contains(possible_token)) {
-            this->program_position++;
-            token.push_back(current_char);
-        }
-        else {
+        std::string possible_token{ token + current_char };
+        if (!this->reserved_tokens.contains(possible_token)) {
             break;
         }
+
+        this->program_position++;
+        token.push_back(current_char);
     }
 
     return token;
@@ -226,27 +218,26 @@ std::string Scanner::handleOtherToken() {
             continue;
         }
 
+        // If it's a reserved token and the current token buffer is empty, it should be handled by handleReservedToken()
         if (this->reserved_tokens.contains(ch_str)) {
-            // If it's a reserved token and the current token buffer is empty, it should be handled by handleReservedToken()
-            // If there's something in the token buffer, we've reached the end of an identifier or number
             break;
         }
 
         if (!isalnum(current_char) && current_char != '@') {
-            // If it's not alphanumeric or '@' (for identifiers), and the token buffer is empty, it's an unrecognized symbol
-            if (token.empty()) {
-                token.push_back(current_char);
-                this->program_position++;
-                return token;
-            }
-
             // If there's something in the token buffer, we've reached the end of an identifier or number
-            break;
+            if (!token.empty()) {
+				break;
+			}
+
+            // If it's not alphanumeric or '@' (for identifiers), and the token buffer is empty, it's an unrecognized symbol
+            this->program_position++;
+            token.push_back(current_char);
+            return token;
         }
 
         // Add the character to the token buffer
-        token.push_back(current_char);
         this->program_position++;
+        token.push_back(current_char);
     }
 
     return token;
