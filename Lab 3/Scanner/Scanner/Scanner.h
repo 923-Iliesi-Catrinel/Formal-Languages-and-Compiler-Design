@@ -55,6 +55,16 @@ private:
         return std::regex_match(token, NUMBER_PATTERN) || std::regex_match(token, STRING_PATTERN);
     }
 
+    // Checks if the given token is the beginning of a comment
+    bool isComment(const char& token) {
+        return token == '~';
+    }
+
+    // Checks if the given token is a quote (beginning of a character string)
+    bool isQuote(const char& token) {
+        return token == '\'' || token == '\"';
+    }
+
     // Reads and stores reserved tokens from the given file into the reserved_tokens hash table
     void readTokenFile(const std::string& token_file_path);
 
@@ -62,7 +72,7 @@ private:
     void readProgramFile(const std::string& program_file_path);
 
     // Parses the program file, extracting and classifying tokens
-    void parseProgram();
+    void parse();
 
     // Classifies and codifies a token and stores it in the Program Internal Form and Symbol Table if it's not already there
     void classifyToken(const std::string& token);

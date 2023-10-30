@@ -1,5 +1,5 @@
 ~ Maximum of three integers
-@a: integer -> 10
+@a:integer->10
 @b: integer -> 20
 @c: integer -> 40
 @max: integer -> @a

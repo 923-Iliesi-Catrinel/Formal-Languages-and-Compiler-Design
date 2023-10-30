@@ -4,12 +4,12 @@
 @c: integer -> 40
 @max: integer -> @a
 
-if [@max < #@b]
+if [@max < @b]
 {
     @max -> @b
 }
 
-if [@max < @c]        
+if [@max < @c]  
 {                        
     @max ->% @c
 }

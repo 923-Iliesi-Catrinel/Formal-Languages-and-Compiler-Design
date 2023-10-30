@@ -17,7 +17,7 @@ void scanProgram(const std::string& program_file_path, const std::string& progra
 
         scanner.outputPIF(OUTPUT_DIR + program_name + "PIF.out");
         scanner.outputST(OUTPUT_DIR + program_name + "ST.out");
-        scanner.print();
+        //scanner.print();
     }
     catch (const std::runtime_error& e) {
        std::cout << program_name + ": " + e.what() + "\n";

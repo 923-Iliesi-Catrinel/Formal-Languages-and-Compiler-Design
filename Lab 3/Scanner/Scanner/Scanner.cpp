@@ -47,7 +47,7 @@ void Scanner::scan(const std::string& program_file_path) {
     this->current_line = 1;
 
     try {
-        this->parseProgram();
+        this->parse();
     }
     catch (const std::runtime_error& e)
     {
@@ -57,7 +57,7 @@ void Scanner::scan(const std::string& program_file_path) {
     std::cout << "Finished scanning file '" << program_file_path << "'\n";
 }
 
-void Scanner::parseProgram() {
+void Scanner::parse() {
     std::optional<std::string> next_token;
 
     while (this->program_position < this->program.size()) {
@@ -81,15 +81,15 @@ std::optional<std::string> Scanner::nextToken() {
 
     char current_char = this->program[this->program_position];
 
-    // Comment
-    if (current_char == '~') {
-        this->handleComment();
-        return std::nullopt;
+    // Character string
+    if (this->isQuote(current_char)) {
+        return this->handleCharString();
     }
 
-    // Character string
-    if (current_char == '\'' || current_char == '\"') {
-        return this->handleCharString();
+    // Comment
+    if (this->isComment(current_char)) {
+        this->handleComment();
+        return std::nullopt;
     }
 
     // Reserved token from file
@@ -102,16 +102,9 @@ std::optional<std::string> Scanner::nextToken() {
     return this->handleOtherToken();
 }
 
-void Scanner::classifyToken(const std::string& token) {
-    // Get the token code from the reserved_tokens hash table (from the token file)
-    std::optional<size_t> key_code = this->reserved_tokens.get(token);
-
-    if (key_code.has_value()) {
-        // Reserved word or line separator
-        this->program_internal_form.push_back(std::make_pair(*key_code, RESERVED_VALUE));
-    }
-    else if (this->isIdentifier(token) || this->isConstant(token)) {
-        // Identifier or constant
+void Scanner::classifyToken(const std::string & token) {
+    // Identifier or constant
+    if (this->isIdentifier(token) || this->isConstant(token)) {
         std::optional<size_t> found_token = this->symbol_table.get(token);
 
         // Add the token to the symbol table if it's not already there
@@ -128,7 +121,16 @@ void Scanner::classifyToken(const std::string& token) {
         }
     }
     else {
-        throw std::runtime_error("Undefined token: " + token);
+        // Get the token code from the reserved_tokens hash table (from the token file)
+        std::optional<size_t> key_code = this->reserved_tokens.get(token);
+
+        // If the token is not in the hash table, it's an unrecognized symbol
+        if (!key_code.has_value()) {
+            throw std::runtime_error("Undefined token: " + token);
+        }
+
+        // Reserved word from the hash table
+        this->program_internal_form.push_back(std::make_pair(*key_code, RESERVED_VALUE));
     }
 }
 
