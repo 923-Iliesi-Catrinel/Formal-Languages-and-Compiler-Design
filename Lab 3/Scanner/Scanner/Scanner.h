@@ -8,7 +8,7 @@
 #include <iostream>
 #include <algorithm>
 
-const std::string LINE_SEPARATOR = "\\n";
+const char LINE_SEPARATOR = '\n';
 const size_t IDENTIFIER_POSITION = 1;
 const size_t CONSTANT_POSITION = 2;
 const size_t LINE_SEPARATOR_POSITION = 3;
@@ -65,6 +65,16 @@ private:
         return token == '\'' || token == '\"';
     }
 
+    // Checks if the current character is a reserved token
+    bool isReservedToken(const char& token_char) {
+        return this->reserved_tokens.contains(std::string(1, token_char));
+    }
+
+    // Checks if the given token is a reserved token
+    bool isReservedToken(const std::string& token) {
+        return this->reserved_tokens.contains(token);
+    }
+
     // Reads and stores reserved tokens from the given file into the reserved_tokens hash table
     void readTokenFile(const std::string& token_file_path);
 
@@ -82,6 +92,9 @@ private:
 
     // Skips whitespace characters and handles line separators
     void handleWhitespaceAndLineSeparator();
+
+    // Handles line separators
+    void handleLineSeparator();
 
     // Skips over comments in the program file
     void handleComment();

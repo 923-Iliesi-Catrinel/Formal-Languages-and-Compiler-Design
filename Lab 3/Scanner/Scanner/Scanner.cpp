@@ -13,11 +13,12 @@ void Scanner::readTokenFile(const std::string& token_file_path) {
     std::string line;
     size_t index = 0;
     while (std::getline(token_file, line)) {
+        if (line.empty()) { continue;}
         this->reserved_tokens.add(line, ++index);
     }
 
     if (!token_file.eof()) {
-        throw std::runtime_error("Error occurred while reading the token file.");
+        throw std::runtime_error("I/O Error occurred while reading the token file.");
     }
 
     std::cout << "Finished reading reserved tokens from '" << token_file_path << "'\n";
@@ -35,7 +36,7 @@ void Scanner::readProgramFile(const std::string& program_file_path) {
     }
 
     if (!program_file.eof()) {
-        throw std::runtime_error("Error occurred while reading the program file.");
+        throw std::runtime_error("I/O Error occurred while reading the program file.");
     }
 
     std::cout << "Finished reading program from '" << program_file_path << "'\n";
@@ -92,46 +93,45 @@ std::optional<std::string> Scanner::nextToken() {
         return std::nullopt;
     }
 
-    // Reserved token from file
-    std::string ch_str{ current_char };
-    if (this->reserved_tokens.contains(ch_str)) {
-        return this->handleReservedToken();
-    }
-   
-    // Other token (identifier, constant, unrecognized symbol)
-    return this->handleOtherToken();
+    // Reserved token from file or other token (identifier, constant, unrecognized symbol)
+    return this->isReservedToken(current_char) ? this->handleReservedToken() : this->handleOtherToken();
 }
 
-void Scanner::classifyToken(const std::string & token) {
-    // Identifier or constant
-    if (this->isIdentifier(token) || this->isConstant(token)) {
-        std::optional<size_t> found_token = this->symbol_table.get(token);
+void Scanner::classifyToken(const std::string& token) {
+    std::optional<size_t> found_token;
+    size_t key_code;
+
+    // Check if the token is an identifier or a constant
+    bool is_identifier = this->isIdentifier(token);
+    if (is_identifier || this->isConstant(token)) {
+        found_token = this->symbol_table.get(token);
 
         // Add the token to the symbol table if it's not already there
-        if (!found_token.has_value()) {
+        if (!found_token) {
             this->symbol_table.add(token);
-            found_token = this->symbol_table.get(token);
+            found_token = this->symbol_table.getSymbolTableIndex() - 1;
         }
 
-        // Add the token to the PIF
-        if (found_token.has_value()) {
-            size_t position = this->isIdentifier(token) ? IDENTIFIER_POSITION : CONSTANT_POSITION;
-            size_t key_code = this->reserved_tokens.getSize() + position;
-            this->program_internal_form.push_back(std::make_pair(key_code, *found_token));
-        }
+        // Determine the position based on whether it's an identifier or constant
+        size_t position = is_identifier ? IDENTIFIER_POSITION : CONSTANT_POSITION;
+        key_code = this->reserved_tokens.getSize() + position;
     }
     else {
-        // Get the token code from the reserved_tokens hash table (from the token file)
-        std::optional<size_t> key_code = this->reserved_tokens.get(token);
+        // Get the token code from the reserved_tokens hash table (if it's a reserved token)
+        std::optional<size_t> reserved_token = this->reserved_tokens.get(token);
 
-        // If the token is not in the hash table, it's an unrecognized symbol
-        if (!key_code.has_value()) {
+        // If the token is not in the hash table, and it's not an identifier or constant, it's an unrecognized symbol
+        if (!reserved_token.has_value()) {
             throw std::runtime_error("Undefined token: " + token);
         }
 
-        // Reserved word from the hash table
-        this->program_internal_form.push_back(std::make_pair(*key_code, RESERVED_VALUE));
+        // Set the key code for reserved words
+        key_code = *reserved_token;
+        found_token = RESERVED_VALUE;
     }
+
+    // Add the token to the PIF
+    this->program_internal_form.push_back(std::make_pair(key_code, *found_token));
 }
 
 void Scanner::handleWhitespaceAndLineSeparator() {
@@ -139,48 +139,44 @@ void Scanner::handleWhitespaceAndLineSeparator() {
     while (this->program_position < this->program.size()) {
         char current_char = this->program[this->program_position];
 
-        if (current_char == '\n') {
-            size_t key_code = this->reserved_tokens.getSize() + LINE_SEPARATOR_POSITION;
-            this->program_internal_form.push_back(std::make_pair(key_code, RESERVED_VALUE));
-            this->current_line++;
+        if (current_char == LINE_SEPARATOR) {
+            this->handleLineSeparator();
         }
         else if (!std::isspace(current_char)) {
-            return;
+            break;
         }
 
         this->program_position++;
     }
 }
 
+void Scanner::handleLineSeparator() {
+    size_t key_code = this->reserved_tokens.getSize() + LINE_SEPARATOR_POSITION;
+    this->program_internal_form.push_back(std::make_pair(key_code, RESERVED_VALUE));
+    this->current_line++;
+}
+
 void Scanner::handleComment() {
-    // Skip the comment
-    while (this->program_position < this->program.size() && this->program[this->program_position] != '\n') {
+    this->program_position++;             // Skip the comment start character
+
+    while (this->program_position < this->program.size() && this->program[this->program_position] != LINE_SEPARATOR) {
         this->program_position++;
     }
 }
 
 std::string Scanner::handleCharString() {
-    char quote = this->program[this->program_position];
+    char quote = this->program[this->program_position++];        // Skip the opening quote
     std::string token{ quote };
-
-    size_t start_position = this->program_position;
-    this->program_position++;            // Skip the opening quote
  
     while (this->program_position < this->program.size() && this->program[this->program_position] != quote) {
-        token.push_back(this->program[this->program_position]);
-        this->program_position++;
+        token.push_back(this->program[this->program_position++]);
     }
 
-    if (this->program[this->program_position] != quote) {
-        throw std::runtime_error("Unclosed char string starting at line " + std::to_string(this->current_line) + " and position " + std::to_string(start_position));
-	}
-
-    if (this->program_position >= this->program.size()) {
-        throw std::runtime_error("End of file reached while parsing a string constant.");
+    if (this->program_position >= this->program.size() || this->program[this->program_position] != quote) {
+        throw std::runtime_error("Unclosed char string starting at line " + std::to_string(this->current_line));
     }
 
-    token.push_back(quote);             // Add the closing quote to the token
-    this->program_position++;           // Skip the closing quote
+    token.push_back(this->program[this->program_position++]);    // Skip the closing quote
     return token;
 }
 
@@ -192,12 +188,12 @@ std::string Scanner::handleReservedToken() {
 
         // Perform a lookahead to see if the next character is also part of the reserved token
         std::string possible_token{ token + current_char };
-        if (!this->reserved_tokens.contains(possible_token)) {
+        if (!this->isReservedToken(possible_token)) {
             break;
         }
 
-        this->program_position++;
         token.push_back(current_char);
+        this->program_position++;
     }
 
     return token;
@@ -221,15 +217,15 @@ std::string Scanner::handleOtherToken() {
         }
 
         // If it's a reserved token and the current token buffer is empty, it should be handled by handleReservedToken()
-        if (this->reserved_tokens.contains(ch_str)) {
+        if (this->isReservedToken(ch_str)) {
             break;
         }
 
         if (!isalnum(current_char) && current_char != '@') {
             // If there's something in the token buffer, we've reached the end of an identifier or number
             if (!token.empty()) {
-				break;
-			}
+                break;
+            }
 
             // If it's not alphanumeric or '@' (for identifiers), and the token buffer is empty, it's an unrecognized symbol
             this->program_position++;
@@ -258,25 +254,22 @@ void Scanner::print() {
 void Scanner::outputPIF(const std::string& output_file_path) {
     std::ofstream file(output_file_path);
     if (!file.is_open()) {
-        throw std::runtime_error("Unable to open PIF output file!");
+        throw std::runtime_error("Unable to open PIF output file: " + output_file_path);
     }
 
-    file << "Program Internal Form:\n";
-    file << "Token : Symbol Table Position\n";
+    file << "Program Internal Form (PIF):\n";
+    file << "Token | Symbol Table Position\n";
     for (const auto& [token, position] : this->program_internal_form) {
-        file << token << " : " << position << "\n";
+        file << token << " | " << position << "\n";
     }
-
-    file.close();
 }
 
 void Scanner::outputST(const std::string& output_file_path) {
     std::ofstream file(output_file_path);
     if (!file.is_open()) {
-        throw std::runtime_error("Unable to open ST output file!");
+        throw std::runtime_error("Unable to open ST output file: " + output_file_path);
     }
 
     file << "Symbol Table:\n";
     file << this->symbol_table;
-    file.close();
 }
