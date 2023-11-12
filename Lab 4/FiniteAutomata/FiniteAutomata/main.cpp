@@ -85,7 +85,6 @@ int main() {
         // std::string filePath = getFilePathFromUser();
         //FiniteAutomata<std::string, char> finite_automata(filePath);
         FiniteAutomata<std::string, char> finite_automata(FA_STRING_CONSTANT_FILE_PATH);
-        //FiniteAutomata<std::string, char> finite_automata(FA_CONSTANT_FILE_PATH);
         MenuOption user_option = Exit;
 
         do {

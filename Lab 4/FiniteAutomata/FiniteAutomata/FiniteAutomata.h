@@ -60,6 +60,7 @@ FiniteAutomata<StateType, SymbolType>::FiniteAutomata(const std::string& filenam
 
 template<typename StateType, typename SymbolType>
 bool FiniteAutomata<StateType, SymbolType>::accepts(const std::string& sequence) const {
+    // No transitions occur, and the automaton stays in its initial state
     if (sequence.empty()) {
         return this->final_states.count(this->initial_state) > 0;
     }
@@ -73,9 +74,12 @@ bool FiniteAutomata<StateType, SymbolType>::accepts(const std::string& sequence)
         if (it == this->transitions.end()) {
             return false;  // Transition does not exist
         }
+
+        // Current state is updated to the target state of the transition
         current_state = it->second;
     }
 
+    // Check if the current state is one of the final states
     return this->final_states.count(current_state) > 0;
 }
 
