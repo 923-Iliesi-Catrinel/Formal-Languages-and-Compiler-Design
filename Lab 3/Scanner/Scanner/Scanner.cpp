@@ -1,6 +1,6 @@
 #include "Scanner.h"
 
-Scanner::Scanner(const std::string& token_file_path) : program_position{ 0 }, current_line{ 0 } {
+Scanner::Scanner(const std::string& token_file_path) : program_position{ 0 }, current_line{ 0 }, identifier_automata(FA_IDENTIFIER_FILE_PATH), int_constant_automata(FA_INT_CONSTANT_FILE_PATH), char_constant_automata(FA_CHAR_CONSTANT_FILE_PATH), string_constant_automata(FA_STRING_CONSTANT_FILE_PATH) {
     this->readTokenFile(token_file_path);
 }
 
