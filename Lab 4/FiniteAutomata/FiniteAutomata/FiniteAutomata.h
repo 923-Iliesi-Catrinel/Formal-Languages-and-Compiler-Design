@@ -62,7 +62,7 @@ template<typename StateType, typename SymbolType>
 bool FiniteAutomata<StateType, SymbolType>::accepts(const std::string& sequence) const {
     // No transitions occur, and the automaton stays in its initial state
     if (sequence.empty()) {
-        return this->final_states.count(this->initial_state) > 0;
+        return false;
     }
 
     StateType current_state = this->initial_state;
