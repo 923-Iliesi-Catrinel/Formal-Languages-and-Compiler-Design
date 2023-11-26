@@ -196,10 +196,15 @@ impl Menu {
         };
 
         println!("Checking if the given grammar is a Context Free Grammar...\n");
-        if grammar.cfg_check() {
-            println!("Grammar is a Context Free Grammar!");
-        } else {
-            println!("Grammar is not a Context Free Grammar!");
+
+        match grammar.cfg_check() {
+            Ok(()) => {
+                println!("Grammar is a Context Free Grammar!");
+            }
+            Err(e) => {
+                println!("Grammar is not a Context Free Grammar!\n {}.", e);
+                return;
+            }
         }
     }
 }

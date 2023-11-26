@@ -1,6 +1,7 @@
 S A B C D
 a b c
 S
+
 S -> a A | a C
 A -> A B
 B -> b
