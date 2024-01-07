@@ -1,7 +1,5 @@
 %{
 /* Declarations */
-#include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
 
 int no_lines = 1;
@@ -17,6 +15,7 @@ letter          [a-zA-Z]
 special_char    [ ~!#$%&'"+*/.,:;@^_`|~]
 
 identifier      @{letter}({letter}|{digit})*
+wrong_identifier ({digit})+(@{letter})+({letter}|{digit})*
 
 positive_int    \+?{nonzero}{digit}*
 negative_int    -{nonzero}{digit}*
@@ -44,6 +43,8 @@ string_const    (\"(\\[ntr\\"']|{letter}|{digit}|{special_char})*\")
                                                                                                           
                                                                                                           printf("Identifier: %s\n", yytext); 
                                                                                                         }
+
+{wrong_identifier}                                                                                      { printf("Error: Invalid identifier format '%s' at line %d\n", yytext, no_lines); exit(1); }
 
 {int_const}                                                                                             { printf("Integer constant: %s\n", yytext); }
 

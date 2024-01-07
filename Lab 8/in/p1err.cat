@@ -1,10 +1,10 @@
 ~ Maximum of three integers with lexical errors
 @a: integer -> 10
 @b: integer -> 20
-@c: integer -> 40k
+@c: integer -> 40
 @max: integer -> @a
 
-if [@max < @b]
+if [@max < 1@b]
 {
     @max -> @b
 }
