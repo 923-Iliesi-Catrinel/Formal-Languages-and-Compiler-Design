@@ -16,13 +16,13 @@ nonzero         [1-9]
 letter          [a-zA-Z]
 special_char    [ ~!#$%&'"+*/.,:;@^_`|~]
 
+identifier      @{letter}({letter}|{digit})*
+
 positive_int    \+?{nonzero}{digit}*
 negative_int    -{nonzero}{digit}*
 int_const       {positive_int}|{negative_int}|0
 char_const      (\'(\\[ntr\\"']|{letter}|{digit}|{special_char})\')
 string_const    (\"(\\[ntr\\"']|{letter}|{digit}|{special_char})*\")
-
-identifier      @{letter}({letter}|{digit})*
 
 %%
 
