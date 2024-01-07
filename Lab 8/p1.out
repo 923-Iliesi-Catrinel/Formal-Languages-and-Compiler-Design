@@ -1,0 +1,53 @@
+TOKENS:
+
+Identifier: @a
+Separator: :
+Reserved word: integer
+Operator: ->
+Integer constant: 10
+Identifier: @b
+Separator: :
+Reserved word: integer
+Operator: ->
+Integer constant: -20
+Identifier: @c
+Separator: :
+Reserved word: integer
+Operator: ->
+Integer constant: 40
+Identifier: @max
+Separator: :
+Reserved word: integer
+Operator: ->
+Identifier: @a
+Identifier: @z
+Separator: :
+Reserved word: character
+Operator: ->
+Character constant: 'z'
+Reserved word: if
+Separator: [
+Identifier: @max
+Operator: <
+Identifier: @b
+Separator: ]
+Separator: {
+Identifier: @max
+Operator: ->
+Identifier: @b
+Separator: }
+Reserved word: if
+Separator: [
+Identifier: @max
+Operator: <
+Identifier: @c
+Separator: ]
+Separator: {
+Identifier: @max
+Operator: ->
+Identifier: @c
+Separator: }
+Reserved word: write
+Separator: [
+Identifier: @max
+Separator: ]

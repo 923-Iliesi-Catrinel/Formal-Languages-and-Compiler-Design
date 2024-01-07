@@ -1,0 +1,28 @@
+~ Verify if a number is prime
+@isPrime: boolean -> 1
+@n: integer
+read[@n]
+
+if [@n <= 1]
+{
+    @isPrime -> 0
+}
+otherwise
+{
+    loopfor [@i: integer -> 2, @i <= @n div 2, @i -> @i add 1]
+    {
+        if [@n mod @i eq 0]
+        {
+            @isPrime -> 0
+        }
+    }
+}
+
+if [@isPrime eq 1]
+{
+    write["n is a prime number."]
+}
+otherwise
+{
+    write["n is not a prime number."]
+}

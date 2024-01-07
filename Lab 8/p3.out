@@ -1,0 +1,52 @@
+TOKENS:
+
+Identifier: @n
+Separator: :
+Reserved word: integer
+Operator: ->
+Integer constant: 0
+Identifier: @sum
+Separator: :
+Reserved word: integer
+Operator: ->
+Integer constant: 0
+Identifier: @i
+Separator: :
+Reserved word: integer
+Operator: ->
+Integer constant: 0
+Reserved word: read
+Separator: [
+Identifier: @n
+Separator: ]
+Reserved word: loopwhile
+Separator: [
+Identifier: @i
+Operator: <
+Identifier: @n
+Separator: ]
+Separator: {
+Identifier: @x
+Separator: :
+Reserved word: integer
+Operator: ->
+Integer constant: 0
+Reserved word: read
+Separator: [
+Identifier: @x
+Separator: ]
+Identifier: @sum
+Operator: ->
+Identifier: @sum
+Operator: add
+Identifier: @x
+Identifier: @i
+Operator: ->
+Identifier: @i
+Operator: add
+Integer constant: 1
+Separator: }
+Reserved word: write
+Separator: [
+Identifier: @sum
+Separator: ]

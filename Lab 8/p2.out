@@ -1,0 +1,82 @@
+TOKENS:
+
+Identifier: @isPrime
+Separator: :
+Reserved word: boolean
+Operator: ->
+Integer constant: 1
+Identifier: @n
+Separator: :
+Reserved word: integer
+Reserved word: read
+Separator: [
+Identifier: @n
+Separator: ]
+Reserved word: if
+Separator: [
+Identifier: @n
+Operator: <=
+Integer constant: 1
+Separator: ]
+Separator: {
+Identifier: @isPrime
+Operator: ->
+Integer constant: 0
+Separator: }
+Reserved word: otherwise
+Separator: {
+Reserved word: loopfor
+Separator: [
+Identifier: @i
+Separator: :
+Reserved word: integer
+Operator: ->
+Integer constant: 2
+Separator: ,
+Identifier: @i
+Operator: <=
+Identifier: @n
+Operator: div
+Integer constant: 2
+Separator: ,
+Identifier: @i
+Operator: ->
+Identifier: @i
+Operator: add
+Integer constant: 1
+Separator: ]
+Separator: {
+Reserved word: if
+Separator: [
+Identifier: @n
+Operator: mod
+Identifier: @i
+Operator: eq
+Integer constant: 0
+Separator: ]
+Separator: {
+Identifier: @isPrime
+Operator: ->
+Integer constant: 0
+Separator: }
+Separator: }
+Separator: }
+Reserved word: if
+Separator: [
+Identifier: @isPrime
+Operator: eq
+Integer constant: 1
+Separator: ]
+Separator: {
+Reserved word: write
+Separator: [
+String constant: "n is a prime number."
+Separator: ]
+Separator: }
+Reserved word: otherwise
+Separator: {
+Reserved word: write
+Separator: [
+String constant: "n is not a prime number."
+Separator: ]
+Separator: }

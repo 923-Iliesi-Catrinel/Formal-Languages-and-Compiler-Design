@@ -2,6 +2,22 @@ Syntactical rules of Cat Programming Language:
 
 Note: predefined tokens are specified between " and ":
 
+letter ::= "A" | "B" | ... | "Z" | "a" | "b" | ... | "z"
+
+special_char ::= " " | "!" | "?" | "(" | ")" | "[" | "] | "{" | "}" | "#" | "$" | "%" | "&" | "'" | """ |  "+" | "-" | "*" | "/" | "." | "," | ":" | ";" | "@" | "^" | "_" | "`" | "|" | "~"
+
+digit ::= "0" | nonzero
+nonzero ::= "1" | .. | "9"
+number_constant ::= ["+" | "-"] nonzero {digit} | "0"
+
+character ::= letter | digit | special_char
+character_list ::= {character}
+char_constant ::= "'" character "'"
+string_constant ::= '"' character_list '"'
+
+constant ::= number_constant | char_constant | string_constant
+identifier ::= "@"letter | "@"letter{letter}[digit]
+
 comment ::= "~" string
 comments ::= comment | comment newlines {comment}
 
@@ -11,32 +27,36 @@ newlines ::= newline_win | newline_lin
 
 program ::= stmtlist
 
-decllist ::= declaration | declaration newlines decllist | declaration "," decllist
-declaration ::= IDENTIFIER ":" type | ["const"] IDENTIFIER ":" type "=" expression
+var ::= identifier | array_var
+array_var =  identifier "[" expression "]"
+value ::= constant | var
 
-primitive_type::= "BOOLEAN" | "CHARACTER" | "INTEGER" | "STRING" | "VOID" | "CONST"
-arraydecl ::= IDENTIFIER ":" "ARRAY" "(" primitive_type ")" "[" nr "]"
+decllist ::= declaration | declaration newlines decllist | declaration "," decllist
+declaration ::= identifier ":" type | identifier ":" type "=" expression
+
+primitive_type::= "boolean" | "character" | "integer" | "string"
+arraydecl ::= identifier ":" "array" "(" primitive_type ")" "[" expression "]"
 type ::= primitive_type | arraydecl
 
 cmpdstmt ::= "{" stmtlist "}"
 stmtlist ::= [comment] stmt | [comment] stmt newlines stmtlist
 stmt ::= simplstmt | structstmt
 simplstmt ::= assignstmt | iostmt
-assignstmt ::= IDENTIFIER "->" expression
 
-expression ::= term | expression "ADD" term | expression "SUB" term
-term ::= factor | term "MUL" factor | term "DIV" factor | term "MOD" factor
-factor ::= "[" expression "]" | IDENTIFIER | IDENTIFIER "[" number "]" | nr | character | string
+assignstmt ::= identifier "->" expression
+expression ::= term | expression "add" term | expression "sub" term
+term ::= factor | term "mul" factor | term "div" factor | term "mod" factor
+factor ::= "[" expression "]" | value
 
-readstmt ::= "read" "[" IDENTIFIER "]"
-writestmt ::= "write" "[" IDENTIFIER | CONSTCHAR "]"
+readstmt ::= "read" "[" identifier "]"
+writestmt ::= "write" "[" identifier | string_constant "]"
 iostmt ::= readstmt | writestmt
 
 structstmt ::= cmpdstmt | ifstmt | whilestmt | forstmt
-ifstmt ::= "IF[" conditions "] {" stmt "} [OTHERWISE {" stmtlist "}"]
-whilestmt ::= "LOOPWHILE[" conditions "] {" stmtlist "}"
-forstmt ::= "LOOPFOR[" assignstmt | declaration "," conditions "," assignstmt "] {" stmtlist "}"
+ifstmt ::= "if" "[" conditions "]" "{" stmt "}" "[" "otherwise" "{" stmtlist "}"]
+whilestmt ::= "loopwhile" "[" conditions "]" "{" stmtlist "}"
+forstmt ::= "loopfor" "[" assignstmt | declaration "," conditions "," assignstmt "]" "{" stmtlist "}"
 
-condition ::= expression RELATION expression
-conditions ::= condition | condition "AND" conditions | condition "OR" conditions
-RELATION ::= "<" | "<=" | "eq" | "noteq" | ">" | ">=" | "AND" | "OR"
+condition ::= expression relation expression
+conditions ::= condition | condition "and" conditions | condition "or" conditions
+relation ::= "<" | "<=" | "eq" | "noteq" | ">" | ">=" | "and" | "or"

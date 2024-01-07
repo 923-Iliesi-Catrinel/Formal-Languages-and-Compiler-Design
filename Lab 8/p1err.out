@@ -1,0 +1,27 @@
+TOKENS:
+
+Identifier: @a
+Separator: :
+Reserved word: integer
+Operator: ->
+Integer constant: 10
+Identifier: @b
+Separator: :
+Reserved word: integer
+Operator: ->
+Integer constant: 20
+Identifier: @c
+Separator: :
+Reserved word: integer
+Operator: ->
+Integer constant: 40
+Identifier: @max
+Separator: :
+Reserved word: integer
+Operator: ->
+Identifier: @a
+Reserved word: if
+Separator: [
+Identifier: @max
+Operator: <
+Error: Invalid identifier format '1@b' at line 6

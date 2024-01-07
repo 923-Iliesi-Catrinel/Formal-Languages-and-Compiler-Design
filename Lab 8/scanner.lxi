@@ -1,0 +1,78 @@
+%{
+/* Declarations */
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+int no_lines = 1;
+%}
+
+/* no more input after EOF */
+%option noyywrap  
+
+/* Definitions */
+digit           [0-9]
+nonzero         [1-9]
+letter          [a-zA-Z]
+special_char    [ ~!#$%&'"+*/.,:;@^_`|~]
+
+positive_int    \+?{nonzero}{digit}*
+negative_int    -{nonzero}{digit}*
+int_const       {positive_int}|{negative_int}|0
+char_const      (\'(\\[ntr\\"']|{letter}|{digit}|{special_char})\')
+string_const    (\"(\\[ntr\\"']|{letter}|{digit}|{special_char})*\")
+
+identifier      @{letter}({letter}|{digit})*
+wrong_identifier  ({digit})+(@{letter})+({letter}|{digit})*
+
+%%
+
+[ \t]+                                                                                                  { /* Ignore tabs and spaces */ }
+
+"~"(.)*[\n|\r\n]+                                                                                       { no_lines++; /* Handle comments */ }
+
+[\n|\r\n]+                                                                                              { no_lines++; /* Handle newlines */ }
+
+"read"|"write"|"if"|"otherwise"|"loopwhile"|"loopfor"|"integer"|"boolean"|"character"|"array"|"string"  { printf("Reserved word: %s\n", yytext); }
+
+"->"|"add"|"sub"|"mul"|"div"|"mod"|"<"|"<="|"eq"|"noteq"|">="|">"|"and"|"or"                            { printf("Operator: %s\n", yytext); }
+
+{identifier}                                                                                            {
+                                                                                                          if(strlen(yytext) > 255) {
+                                                                                                            printf("Error: Identifier exceeds 255 characters at line %d\n", no_lines);
+                                                                                                            exit(1);
+                                                                                                          }
+                                                                                                          
+                                                                                                          printf("Identifier: %s\n", yytext); 
+                                                                                                        }
+
+{wrong_identifier}                                                                                      { printf("Error: Invalid identifier format '%s' at line %d\n", yytext, no_lines); exit(1); }
+
+{int_const}                                                                                             { printf("Integer constant: %s\n", yytext); }
+
+{char_const}                                                                                            { printf("Character constant: %s\n", yytext); }
+
+{string_const}                                                                                          { printf("String constant: %s\n", yytext); }
+
+"["|"]"|"{"|"}"|"("|")"|","|":"                                                                         { printf("Separator: %s\n", yytext); }
+
+.                                                                                                       { printf("Lexical error at line %d: Undefined token %s\n", no_lines, yytext); exit(1); /* Handle bad characters */ }
+
+%%
+
+int main(int argc, char** argv) {
+    if (argc > 1) {
+        yyin = fopen(argv[1], "r");
+        if (yyin == NULL) {
+            printf("Error opening file %s\n", argv[1]);
+            exit(1);
+        }
+    } else {
+        yyin = stdin;
+    }
+
+    printf("TOKENS:\n\n");
+    
+    yylex();
+    fclose(yyin);
+}
