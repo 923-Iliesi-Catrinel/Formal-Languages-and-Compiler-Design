@@ -146,7 +146,7 @@ readstmt : READ SQUAREBRACKET_OPEN IDENTIFIER SQUAREBRACKET_CLOSE { printf("read
 writestmt : WRITE SQUAREBRACKET_OPEN expression SQUAREBRACKET_CLOSE     { printf("writestmt -> write [ IDENTIFIER ]\n"); }
           ;
 
-ifstmt : IF SQUAREBRACKET_OPEN conditions SQUAREBRACKET_CLOSE cmpstmt elsestmt                         { printf("ifstmt -> if [ conditions ] cmpstmt \n"); }
+ifstmt : IF SQUAREBRACKET_OPEN conditions SQUAREBRACKET_CLOSE cmpstmt elsestmt   { printf("ifstmt -> if [ conditions ] cmpstmt \n"); }
        ;
 
 elsestmt : OTHERWISE cmpstmt { printf("elsestmt -> OTHERWISE cmpstmt\n"); }
@@ -166,7 +166,7 @@ condition: simplecondition conditiontail { printf("condition -> simplecondition 
          ;
 
 conditiontail: AND simplecondition conditiontail { printf("conditiontail -> AND simplecondition conditionTail\n"); }
-             | /* empty */                       { printf("conditiontail -> epsilon\n"); }
+             |                                   { printf("conditiontail -> epsilon\n"); }
              ;
 
 simplecondition: expression RELATION expression { printf("simplecondition -> expression Relation expression\n"); }
@@ -203,7 +203,7 @@ void yyerror(const char *s) {
 
 int main(int argc, char** argv) {
     if (argc > 2) {
-        printf("Usage: %s [file]\n", argv[0]);
+        printf("Too many arguments!\n", argv[0]);
         return 1;
     }
 
