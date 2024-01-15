@@ -55,38 +55,24 @@ void yyerror(const char *s);
 
 %%
 
+program : stmtlist  { printf("program -> stmtlist\n"); }
+        ;
+
 constant : INTCONSTANT      { printf("constant -> intconstant\n"); }
          | CHARCONSTANT     { printf("constant -> charconstant\n"); }
          | STRINGCONSTANT   { printf("constant -> stringconstant\n"); }
          ;
 
-var : IDENTIFIER op_arr { printf("Variable -> IDENTIFIER OptionalArray\n"); }
+var : IDENTIFIER arr { printf("Variable -> IDENTIFIER OptionalArray\n"); }
     ;
 
-op_arr : SQUAREBRACKET_OPEN expression SQUAREBRACKET_CLOSE      { printf("op_arr -> [ expression ]\n"); }
-       |                                                        { printf("op_arr -> epsilon\n"); }
-       ;
+arr : SQUAREBRACKET_OPEN expression SQUAREBRACKET_CLOSE      { printf("arr -> [ expression ]\n"); }
+    |                                                        { printf("arr -> epsilon\n"); }
+    ;
 
 value : constant { printf("value -> constant\n"); }
       | var      { printf("value -> var\n"); }
       ;
-
-program : stmtlist  { printf("program -> stmtlist\n"); }
-        ;
-
-declaration : type op_assign { printf("declaration -> type op_assign\n"); }
-            ;
-
-op_assign : ARROW expression { printf("op_assign -> -> expression\n"); }
-          |                  { printf("op_assign -> epsilon\n"); }
-          ;
-
-stmtlist : stmt SEMICOLON stmtlisttail { printf("stmtlist -> stmt ; stmtlisttail\n"); }
-         ;
-
-stmtlisttail : stmtlist { printf("stmtlist -> stmtlist\n"); }
-             |          { printf("stmtlist -> epsilon\n"); }
-             ;
 
 stmt : IDENTIFIER stmttail { printf("stmt -> IDENTIFIER stmttail\n"); }
      | iostmt              { printf("stmt -> iostmt\n"); }
@@ -96,7 +82,14 @@ stmt : IDENTIFIER stmttail { printf("stmt -> IDENTIFIER stmttail\n"); }
      ;
 
 stmttail: COLON declaration               { printf("stmttail -> : declaration\n"); }
-             | op_arr ARROW expression { printf("stmttail -> op_arr -> expression\n"); }
+             | arr ARROW expression { printf("stmttail -> arr -> expression\n"); }
+             ;
+
+stmtlist : stmt SEMICOLON stmtlisttail { printf("stmtlist -> stmt ; stmtlisttail\n"); }
+         ;
+
+stmtlisttail : stmtlist { printf("stmtlist -> stmtlist\n"); }
+             |          { printf("stmtlist -> epsilon\n"); }
              ;
 
 type : primitive_type                { printf("type -> primitive_type\n"); }
@@ -108,6 +101,13 @@ primitive_type : INTEGER             { printf("primitive_type -> integer\n"); }
                | CHARACTER           { printf("primitive_type -> character\n"); }
                | STRING              { printf("primitive_type -> string\n"); }
                ;
+
+declaration : type assign { printf("declaration -> type assign\n"); }
+            ;
+
+assign : ARROW expression { printf("assign -> -> expression\n"); }
+       |                  { printf("assign -> epsilon\n"); }
+       ;
 
 arraydecl : ARRAY PARENTHESIS_OPEN primitive_type PARENTHESIS_CLOSE SQUAREBRACKET_OPEN expression SQUAREBRACKET_CLOSE { printf("arraydecl -> identifier : array (primitive_type) [expression]"); }
           ;
@@ -122,11 +122,6 @@ expressiontail: ADD term expressiontail  { printf("expressiontail -> ADD term ex
               | SUB term expressiontail  { printf("expressiontail -> SUB term expressiontail\n"); }
               |             { printf("expressiontail -> epsilon\n"); }
               ;
-
-factor: SQUAREBRACKET_OPEN expression SQUAREBRACKET_CLOSE { printf("factor -> [ Expression ]\n"); }
-      | value                                             { printf("factor -> value\n"); }
-      ;
-
 term : factor termtail { printf("term -> factor termtail\n"); }
      ;
 
@@ -135,6 +130,10 @@ termtail: MUL factor termtail  { printf("termtail -> MUL factor termtail\n"); }
         | MOD factor termtail { printf("termtail -> MOD factor termtail\n"); }
         |                     { printf("termtail -> epsilon\n"); }
         ;
+
+factor: SQUAREBRACKET_OPEN expression SQUAREBRACKET_CLOSE { printf("factor -> [ Expression ]\n"); }
+      | value                                             { printf("factor -> value\n"); }
+      ;
 
 iostmt : readstmt  { printf("iostmt -> readstmt\n"); }
        | writestmt { printf("iostmt -> writestmt\n"); }
@@ -162,23 +161,6 @@ assignstmt : IDENTIFIER ARROW expression { printf("assignstmt -> IDENTIFIER -> e
 forstmt : LOOPFOR SQUAREBRACKET_OPEN assignstmt COMMA conditions COMMA assignstmt SQUAREBRACKET_CLOSE cmpstmt { printf("forstmt -> for [assignstmt, conditions, assignstmt] cmpstmt \n"); }
         ;
 
-condition: simplecondition conditiontail { printf("condition -> simplecondition conditiontail\n"); }
-         ;
-
-conditiontail: AND simplecondition conditiontail { printf("conditiontail -> AND simplecondition conditionTail\n"); }
-             |                                   { printf("conditiontail -> epsilon\n"); }
-             ;
-
-simplecondition: expression RELATION expression { printf("simplecondition -> expression Relation expression\n"); }
-               ;
-
-conditions: condition conditionstail { printf("conditions -> condition conditiontail\n"); }
-          ;
-
-conditionstail: OR condition conditionstail { printf("conditionstail -> OR condition conditionstail\n"); }
-              |                             { printf("conditionstail -> epsilon\n"); }
-              ;
-
 RELATION : GE           { printf("RELATION -> >=\n"); }
          | LE           { printf("RELATION -> <=\n"); }
          | GT           { printf("RELATION -> >\n"); }
@@ -189,13 +171,30 @@ RELATION : GE           { printf("RELATION -> >=\n"); }
          | OR           { printf("RELATION -> ||\n"); }
          ;
 
+condition: simplecond conditiontail { printf("condition -> simplecond conditiontail\n"); }
+         ;
+
+conditiontail: AND simplecond conditiontail { printf("conditiontail -> AND simplecond conditiontail\n"); }
+             |                                   { printf("conditiontail -> epsilon\n"); }
+             ;
+
+simplecond: expression RELATION expression { printf("simplecond -> expression RELATION expression\n"); }
+               ;
+
+conditions: condition conditionstail { printf("conditions -> condition conditiontail\n"); }
+          ;
+
+conditionstail: OR condition conditionstail { printf("conditionstail -> OR condition conditionstail\n"); }
+              |                             { printf("conditionstail -> epsilon\n"); }
+              ;
+
 %%
 
 extern FILE *yyin;
 extern int yyparse(void);
 
 void yyerror(const char *s) {
-    printf("Parser error: %s\n", s);
+    printf("Parsing error: %s\n", s);
 
     fclose(yyin);
     exit(1);
@@ -203,14 +202,14 @@ void yyerror(const char *s) {
 
 int main(int argc, char** argv) {
     if (argc > 2) {
-        printf("Too many arguments!\n", argv[0]);
+        printf("Too many arguments!\n");
         return 1;
     }
 
     if (argc == 2) {
         yyin = fopen(argv[1], "r");
         if (yyin == NULL) {
-            printf("Error: Could not open file %s\n", argv[1]);
+            printf("Unable to open %s\n", argv[1]);
             exit(1);
         }
     } else {

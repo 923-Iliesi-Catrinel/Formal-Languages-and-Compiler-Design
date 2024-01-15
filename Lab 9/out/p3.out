@@ -13,8 +13,8 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-op_assign -> -> expression
-declaration -> type op_assign
+assign -> -> expression
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Identifier: @sum
@@ -32,8 +32,8 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-op_assign -> -> expression
-declaration -> type op_assign
+assign -> -> expression
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Identifier: @i
@@ -51,8 +51,8 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-op_assign -> -> expression
-declaration -> type op_assign
+assign -> -> expression
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Reserved word: read
@@ -67,7 +67,7 @@ Reserved word: loopwhile
 Separator: [
 Identifier: @i
 Operator: <
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -78,7 +78,7 @@ expression -> term expressiontail
 RELATION -> <
 Identifier: @n
 Separator: ]
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -86,9 +86,9 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-simplecondition -> expression Relation expression
+simplecond -> expression RELATION expression
 conditiontail -> epsilon
-condition -> simplecondition conditiontail
+condition -> simplecond conditiontail
 conditionstail -> epsilon
 conditions -> condition conditiontail
 Separator: {
@@ -107,8 +107,8 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-op_assign -> -> expression
-declaration -> type op_assign
+assign -> -> expression
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Reserved word: read
@@ -121,10 +121,10 @@ stmt -> iostmt
 Separator: ;
 Identifier: @sum
 Operator: ->
-op_arr -> epsilon
+arr -> epsilon
 Identifier: @sum
 Operator: add
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -132,7 +132,7 @@ termtail -> epsilon
 term -> factor termtail
 Identifier: @x
 Separator: ;
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -141,14 +141,14 @@ term -> factor termtail
 expressiontail -> epsilon
 expressiontail -> ADD term expressiontail
 expression -> term expressiontail
-stmttail -> op_arr -> expression
+stmttail -> arr -> expression
 stmt -> IDENTIFIER stmttail
 Identifier: @i
 Operator: ->
-op_arr -> epsilon
+arr -> epsilon
 Identifier: @i
 Operator: add
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -164,7 +164,7 @@ term -> factor termtail
 expressiontail -> epsilon
 expressiontail -> ADD term expressiontail
 expression -> term expressiontail
-stmttail -> op_arr -> expression
+stmttail -> arr -> expression
 stmt -> IDENTIFIER stmttail
 Separator: }
 stmtlist -> epsilon
@@ -183,7 +183,7 @@ Reserved word: write
 Separator: [
 Identifier: @sum
 Separator: ]
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value

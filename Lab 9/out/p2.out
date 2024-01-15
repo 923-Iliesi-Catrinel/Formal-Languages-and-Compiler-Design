@@ -13,8 +13,8 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-op_assign -> -> expression
-declaration -> type op_assign
+assign -> -> expression
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Identifier: @n
@@ -23,8 +23,8 @@ Reserved word: integer
 primitive_type -> integer
 type -> primitive_type
 Separator: ;
-op_assign -> epsilon
-declaration -> type op_assign
+assign -> epsilon
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Identifier: @i
@@ -33,8 +33,8 @@ Reserved word: integer
 primitive_type -> integer
 type -> primitive_type
 Separator: ;
-op_assign -> epsilon
-declaration -> type op_assign
+assign -> epsilon
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Reserved word: read
@@ -49,7 +49,7 @@ Reserved word: if
 Separator: [
 Identifier: @n
 Operator: <=
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -67,15 +67,15 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-simplecondition -> expression Relation expression
+simplecond -> expression RELATION expression
 conditiontail -> epsilon
-condition -> simplecondition conditiontail
+condition -> simplecond conditiontail
 conditionstail -> epsilon
 conditions -> condition conditiontail
 Separator: {
 Identifier: @isPrime
 Operator: ->
-op_arr -> epsilon
+arr -> epsilon
 Integer constant: 0
 constant -> intconstant
 value -> constant
@@ -85,7 +85,7 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-stmttail -> op_arr -> expression
+stmttail -> arr -> expression
 stmt -> IDENTIFIER stmttail
 Separator: }
 stmtlist -> epsilon
@@ -109,7 +109,7 @@ expression -> term expressiontail
 assignstmt -> IDENTIFIER -> expression
 Identifier: @i
 Operator: <=
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -120,7 +120,7 @@ expression -> term expressiontail
 RELATION -> <=
 Identifier: @n
 Operator: div
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -134,16 +134,16 @@ termtail -> DIV factor termtail
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-simplecondition -> expression Relation expression
+simplecond -> expression RELATION expression
 conditiontail -> epsilon
-condition -> simplecondition conditiontail
+condition -> simplecond conditiontail
 conditionstail -> epsilon
 conditions -> condition conditiontail
 Identifier: @i
 Operator: ->
 Identifier: @i
 Operator: add
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -165,13 +165,13 @@ Reserved word: if
 Separator: [
 Identifier: @n
 Operator: mod
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
 Identifier: @i
 Operator: eq
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -190,15 +190,15 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-simplecondition -> expression Relation expression
+simplecond -> expression RELATION expression
 conditiontail -> epsilon
-condition -> simplecondition conditiontail
+condition -> simplecond conditiontail
 conditionstail -> epsilon
 conditions -> condition conditiontail
 Separator: {
 Identifier: @isPrime
 Operator: ->
-op_arr -> epsilon
+arr -> epsilon
 Integer constant: 0
 constant -> intconstant
 value -> constant
@@ -208,7 +208,7 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-stmttail -> op_arr -> expression
+stmttail -> arr -> expression
 stmt -> IDENTIFIER stmttail
 Separator: }
 stmtlist -> epsilon
@@ -237,7 +237,7 @@ Reserved word: if
 Separator: [
 Identifier: @isPrime
 Operator: eq
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -255,9 +255,9 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-simplecondition -> expression Relation expression
+simplecond -> expression RELATION expression
 conditiontail -> epsilon
-condition -> simplecondition conditiontail
+condition -> simplecond conditiontail
 conditionstail -> epsilon
 conditions -> condition conditiontail
 Separator: {

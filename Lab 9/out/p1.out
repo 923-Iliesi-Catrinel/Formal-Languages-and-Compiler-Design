@@ -13,8 +13,8 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-op_assign -> -> expression
-declaration -> type op_assign
+assign -> -> expression
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Identifier: @b
@@ -32,8 +32,8 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-op_assign -> -> expression
-declaration -> type op_assign
+assign -> -> expression
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Identifier: @c
@@ -51,8 +51,8 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-op_assign -> -> expression
-declaration -> type op_assign
+assign -> -> expression
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Identifier: @max
@@ -63,7 +63,7 @@ type -> primitive_type
 Operator: ->
 Identifier: @a
 Separator: ;
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -71,8 +71,8 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-op_assign -> -> expression
-declaration -> type op_assign
+assign -> -> expression
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Identifier: @z
@@ -90,15 +90,15 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-op_assign -> -> expression
-declaration -> type op_assign
+assign -> -> expression
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Reserved word: if
 Separator: [
 Identifier: @max
 Operator: <
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -109,7 +109,7 @@ expression -> term expressiontail
 RELATION -> <
 Identifier: @b
 Separator: ]
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -117,18 +117,18 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-simplecondition -> expression Relation expression
+simplecond -> expression RELATION expression
 conditiontail -> epsilon
-condition -> simplecondition conditiontail
+condition -> simplecond conditiontail
 conditionstail -> epsilon
 conditions -> condition conditiontail
 Separator: {
 Identifier: @max
 Operator: ->
-op_arr -> epsilon
+arr -> epsilon
 Identifier: @b
 Separator: ;
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -136,7 +136,7 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-stmttail -> op_arr -> expression
+stmttail -> arr -> expression
 stmt -> IDENTIFIER stmttail
 Separator: }
 stmtlist -> epsilon
@@ -150,7 +150,7 @@ Reserved word: if
 Separator: [
 Identifier: @max
 Operator: <
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -161,7 +161,7 @@ expression -> term expressiontail
 RELATION -> <
 Identifier: @c
 Separator: ]
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -169,18 +169,18 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-simplecondition -> expression Relation expression
+simplecond -> expression RELATION expression
 conditiontail -> epsilon
-condition -> simplecondition conditiontail
+condition -> simplecond conditiontail
 conditionstail -> epsilon
 conditions -> condition conditiontail
 Separator: {
 Identifier: @max
 Operator: ->
-op_arr -> epsilon
+arr -> epsilon
 Identifier: @c
 Separator: ;
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -188,7 +188,7 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-stmttail -> op_arr -> expression
+stmttail -> arr -> expression
 stmt -> IDENTIFIER stmttail
 Separator: }
 stmtlist -> epsilon
@@ -202,7 +202,7 @@ Reserved word: write
 Separator: [
 Identifier: @max
 Separator: ]
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value

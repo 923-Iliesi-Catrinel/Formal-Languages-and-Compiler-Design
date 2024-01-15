@@ -13,8 +13,8 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-op_assign -> -> expression
-declaration -> type op_assign
+assign -> -> expression
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Identifier: @b
@@ -32,8 +32,8 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-op_assign -> -> expression
-declaration -> type op_assign
+assign -> -> expression
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Identifier: @c
@@ -51,8 +51,8 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-op_assign -> -> expression
-declaration -> type op_assign
+assign -> -> expression
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Identifier: @max
@@ -63,7 +63,7 @@ type -> primitive_type
 Operator: ->
 Identifier: @a
 Separator: ;
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -71,15 +71,15 @@ termtail -> epsilon
 term -> factor termtail
 expressiontail -> epsilon
 expression -> term expressiontail
-op_assign -> -> expression
-declaration -> type op_assign
+assign -> -> expression
+declaration -> type assign
 stmttail -> : declaration
 stmt -> IDENTIFIER stmttail
 Reserved word: if
 Separator: [
 Identifier: @max
 Operator: <
-op_arr -> epsilon
+arr -> epsilon
 Variable -> IDENTIFIER OptionalArray
 value -> var
 factor -> value
@@ -89,4 +89,4 @@ expressiontail -> epsilon
 expression -> term expressiontail
 RELATION -> <
 Error: Invalid identifier format '1@b' at line 6
-Parser error: syntax error
+Parsing error: syntax error

@@ -148,26 +148,26 @@ enum yysymbol_kind_t
   YYSYMBOL_COLON = 39,                     /* COLON  */
   YYSYMBOL_SEMICOLON = 40,                 /* SEMICOLON  */
   YYSYMBOL_YYACCEPT = 41,                  /* $accept  */
-  YYSYMBOL_constant = 42,                  /* constant  */
-  YYSYMBOL_var = 43,                       /* var  */
-  YYSYMBOL_op_arr = 44,                    /* op_arr  */
-  YYSYMBOL_value = 45,                     /* value  */
-  YYSYMBOL_program = 46,                   /* program  */
-  YYSYMBOL_declaration = 47,               /* declaration  */
-  YYSYMBOL_op_assign = 48,                 /* op_assign  */
+  YYSYMBOL_program = 42,                   /* program  */
+  YYSYMBOL_constant = 43,                  /* constant  */
+  YYSYMBOL_var = 44,                       /* var  */
+  YYSYMBOL_arr = 45,                       /* arr  */
+  YYSYMBOL_value = 46,                     /* value  */
+  YYSYMBOL_stmt = 47,                      /* stmt  */
+  YYSYMBOL_stmttail = 48,                  /* stmttail  */
   YYSYMBOL_stmtlist = 49,                  /* stmtlist  */
   YYSYMBOL_stmtlisttail = 50,              /* stmtlisttail  */
-  YYSYMBOL_stmt = 51,                      /* stmt  */
-  YYSYMBOL_stmttail = 52,                  /* stmttail  */
-  YYSYMBOL_type = 53,                      /* type  */
-  YYSYMBOL_primitive_type = 54,            /* primitive_type  */
+  YYSYMBOL_type = 51,                      /* type  */
+  YYSYMBOL_primitive_type = 52,            /* primitive_type  */
+  YYSYMBOL_declaration = 53,               /* declaration  */
+  YYSYMBOL_assign = 54,                    /* assign  */
   YYSYMBOL_arraydecl = 55,                 /* arraydecl  */
   YYSYMBOL_cmpstmt = 56,                   /* cmpstmt  */
   YYSYMBOL_expression = 57,                /* expression  */
   YYSYMBOL_expressiontail = 58,            /* expressiontail  */
-  YYSYMBOL_factor = 59,                    /* factor  */
-  YYSYMBOL_term = 60,                      /* term  */
-  YYSYMBOL_termtail = 61,                  /* termtail  */
+  YYSYMBOL_term = 59,                      /* term  */
+  YYSYMBOL_termtail = 60,                  /* termtail  */
+  YYSYMBOL_factor = 61,                    /* factor  */
   YYSYMBOL_iostmt = 62,                    /* iostmt  */
   YYSYMBOL_readstmt = 63,                  /* readstmt  */
   YYSYMBOL_writestmt = 64,                 /* writestmt  */
@@ -176,12 +176,12 @@ enum yysymbol_kind_t
   YYSYMBOL_whilestmt = 67,                 /* whilestmt  */
   YYSYMBOL_assignstmt = 68,                /* assignstmt  */
   YYSYMBOL_forstmt = 69,                   /* forstmt  */
-  YYSYMBOL_condition = 70,                 /* condition  */
-  YYSYMBOL_conditiontail = 71,             /* conditiontail  */
-  YYSYMBOL_simplecondition = 72,           /* simplecondition  */
-  YYSYMBOL_conditions = 73,                /* conditions  */
-  YYSYMBOL_conditionstail = 74,            /* conditionstail  */
-  YYSYMBOL_RELATION = 75                   /* RELATION  */
+  YYSYMBOL_RELATION = 70,                  /* RELATION  */
+  YYSYMBOL_condition = 71,                 /* condition  */
+  YYSYMBOL_conditiontail = 72,             /* conditiontail  */
+  YYSYMBOL_simplecond = 73,                /* simplecond  */
+  YYSYMBOL_conditions = 74,                /* conditions  */
+  YYSYMBOL_conditionstail = 75             /* conditionstail  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -571,13 +571,13 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    58,    58,    59,    60,    63,    66,    67,    70,    71,
-      74,    77,    80,    81,    84,    87,    88,    91,    92,    93,
-      94,    95,    98,    99,   102,   103,   106,   107,   108,   109,
-     112,   115,   118,   121,   122,   123,   126,   127,   130,   133,
-     134,   135,   136,   139,   140,   143,   146,   149,   152,   153,
-     156,   159,   162,   165,   168,   169,   172,   175,   178,   179,
-     182,   183,   184,   185,   186,   187,   188,   189
+       0,    58,    58,    61,    62,    63,    66,    69,    70,    73,
+      74,    77,    78,    79,    80,    81,    84,    85,    88,    91,
+      92,    95,    96,    99,   100,   101,   102,   105,   108,   109,
+     112,   115,   118,   121,   122,   123,   125,   128,   129,   130,
+     131,   134,   135,   138,   139,   142,   145,   148,   151,   152,
+     155,   158,   161,   164,   165,   166,   167,   168,   169,   170,
+     171,   174,   177,   178,   181,   184,   187,   188
 };
 #endif
 
@@ -600,13 +600,13 @@ static const char *const yytname[] =
   "CHARCONSTANT", "STRINGCONSTANT", "SQUAREBRACKET_OPEN",
   "SQUAREBRACKET_CLOSE", "CURLYBRACKET_OPEN", "CURLYBRACKET_CLOSE",
   "PARENTHESIS_OPEN", "PARENTHESIS_CLOSE", "COMMA", "COLON", "SEMICOLON",
-  "$accept", "constant", "var", "op_arr", "value", "program",
-  "declaration", "op_assign", "stmtlist", "stmtlisttail", "stmt",
-  "stmttail", "type", "primitive_type", "arraydecl", "cmpstmt",
-  "expression", "expressiontail", "factor", "term", "termtail", "iostmt",
-  "readstmt", "writestmt", "ifstmt", "elsestmt", "whilestmt", "assignstmt",
-  "forstmt", "condition", "conditiontail", "simplecondition", "conditions",
-  "conditionstail", "RELATION", YY_NULLPTR
+  "$accept", "program", "constant", "var", "arr", "value", "stmt",
+  "stmttail", "stmtlist", "stmtlisttail", "type", "primitive_type",
+  "declaration", "assign", "arraydecl", "cmpstmt", "expression",
+  "expressiontail", "term", "termtail", "factor", "iostmt", "readstmt",
+  "writestmt", "ifstmt", "elsestmt", "whilestmt", "assignstmt", "forstmt",
+  "RELATION", "condition", "conditiontail", "simplecond", "conditions",
+  "conditionstail", YY_NULLPTR
 };
 
 static const char *
@@ -630,16 +630,16 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       2,   -24,   -18,     3,     9,    22,    -8,    59,   -83,    20,
+       2,   -24,   -18,     3,     9,    26,    -8,    59,    20,   -83,
      -83,   -83,   -83,   -83,   -83,   -83,    35,    -3,    -3,    -3,
       36,    -3,    34,    48,   -83,   -83,     2,    32,    37,   -83,
-     -83,   -83,    -3,   -83,   -83,   -83,    33,    -6,    17,    -4,
+     -83,   -83,    -3,   -83,   -83,   -83,    33,    17,    -6,    -4,
       40,    45,    41,    42,    63,    43,    46,   -83,   -83,   -83,
-      44,   -83,   -83,    64,   -83,   -83,    -3,   -83,   -83,   -83,
-     -83,    49,   -83,    -3,    -3,    -3,   -83,    -3,    -3,   -83,
+      44,   -83,    64,   -83,   -83,   -83,    -3,   -83,   -83,   -83,
+     -83,    49,   -83,    -3,    -3,   -83,    -3,    -3,    -3,   -83,
      -83,   -83,   -83,   -83,   -83,   -83,   -83,   -83,    -3,    -3,
      -83,    -3,   -83,    39,    39,    -3,    -3,   -83,    27,    -3,
-     -83,   -83,   -83,    -6,    -6,    -6,    17,    17,   -83,    40,
+     -83,   -83,   -83,    17,    17,    -6,    -6,    -6,   -83,    40,
       45,     2,    77,   -83,   -83,    47,    50,   -83,   -83,   -83,
      -83,   -83,   -83,   -83,   -83,    51,    39,   -83,    36,    52,
      -83,   -83,    55,    -3,    39,    56,   -83,   -83
@@ -650,37 +650,37 @@ static const yytype_int8 yypact[] =
    means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,     0,     0,     0,     0,     0,     7,     0,    10,     0,
-      18,    43,    44,    19,    20,    21,     0,     0,     0,     0,
-       0,     0,     0,     0,    17,     1,    16,     0,     7,     2,
-       3,     4,     0,     8,     9,    37,     0,    42,    35,     0,
-      59,    55,     0,     0,     0,     0,     0,    26,    27,    28,
-       0,    29,    22,    13,    24,    25,     0,    15,    14,    45,
-       5,     0,    46,     0,     0,     0,    38,     0,     0,    32,
-      63,    61,    64,    65,    60,    62,    66,    67,     0,     0,
-      57,     0,    53,     0,     0,     0,     0,     6,     0,     0,
-      11,    23,    36,    42,    42,    42,    35,    35,    56,    59,
-      55,     0,    49,    50,    51,     0,     0,    12,    39,    40,
-      41,    33,    34,    58,    54,     0,     0,    47,     0,     0,
+       0,     0,     0,     0,     0,     0,     8,     0,     0,     2,
+      12,    43,    44,    13,    14,    15,     0,     0,     0,     0,
+       0,     0,     0,     0,    11,     1,    20,     0,     8,     3,
+       4,     5,     0,     9,    10,    42,     0,    35,    40,     0,
+      67,    63,     0,     0,     0,     0,     0,    23,    24,    25,
+       0,    26,    29,    21,    16,    22,     0,    19,    18,    45,
+       6,     0,    46,     0,     0,    32,     0,     0,     0,    36,
+      56,    54,    57,    58,    53,    55,    59,    60,     0,     0,
+      65,     0,    61,     0,     0,     0,     0,     7,     0,     0,
+      27,    17,    41,    35,    35,    40,    40,    40,    64,    67,
+      63,     0,    49,    50,    51,     0,     0,    28,    33,    34,
+      37,    38,    39,    66,    62,     0,     0,    47,     0,     0,
       31,    48,     0,     0,     0,     0,    52,    30
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -83,   -83,   -83,    62,   -83,   -83,   -83,   -83,   -25,   -83,
-     -83,   -83,   -83,     4,   -83,   -82,   -17,   -41,   -15,   -10,
-     -42,   -83,   -83,   -83,   -83,   -83,   -83,   -27,   -83,    14,
-      -5,    13,   -16,    -2,   -83
+     -83,   -83,   -83,   -83,    62,   -83,   -83,   -83,   -25,   -83,
+     -83,     4,   -83,   -83,   -83,   -82,   -17,   -39,    -7,   -47,
+     -15,   -83,   -83,   -83,   -83,   -83,   -83,   -27,   -83,   -83,
+      14,    -5,    13,   -16,    -2
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,    33,    34,    23,    35,     7,    52,    90,     8,    58,
-       9,    24,    53,    54,    55,   102,    39,    69,    37,    38,
-      66,    10,    11,    12,    13,   117,    14,    45,    15,    40,
-      82,    41,    42,    80,    78
+       0,     7,    33,    34,    23,    35,     8,    24,     9,    58,
+      52,    53,    54,    90,    55,   102,    39,    65,    37,    69,
+      38,    10,    11,    12,    13,   117,    14,    45,    15,    78,
+      40,    82,    41,    42,    80
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -689,11 +689,11 @@ static const yytype_int8 yydefgoto[] =
 static const yytype_int8 yytable[] =
 {
       36,    57,   103,    43,    46,     1,     2,     3,    16,     4,
-       5,    63,    64,    65,    17,    61,    70,    71,    72,    73,
+       5,    66,    67,    68,    17,    61,    70,    71,    72,    73,
       74,    75,    76,    77,    21,    28,    29,    30,    31,    32,
-       6,    22,    67,    68,   121,    18,    47,    48,    49,    91,
-      51,    19,   126,    47,    48,    49,    50,    51,    93,    94,
-      95,   108,   109,   110,    20,   111,   112,    96,    97,    25,
+       6,    22,    63,    64,   121,    18,    47,    48,    49,    91,
+      51,    19,   126,    47,    48,    49,    50,    51,   110,   111,
+     112,    95,    96,    97,   108,   109,    93,    94,    20,    25,
       26,    98,    56,    27,    44,    59,    62,    79,   104,    21,
      105,    81,   107,   101,    83,    84,   115,    85,    89,    87,
       88,    86,    92,   116,   123,   118,   120,   119,   124,   127,
@@ -707,8 +707,8 @@ static const yytype_int8 yycheck[] =
        8,    17,    18,    19,    32,    32,    20,    21,    22,    23,
       24,    25,    26,    27,    32,    28,    29,    30,    31,    32,
       28,    39,    15,    16,   116,    32,     9,    10,    11,    56,
-      13,    32,   124,     9,    10,    11,    12,    13,    63,    64,
-      65,    93,    94,    95,    32,    96,    97,    67,    68,     0,
+      13,    32,   124,     9,    10,    11,    12,    13,    95,    96,
+      97,    66,    67,    68,    93,    94,    63,    64,    32,     0,
       40,    78,    14,    28,    28,    33,    33,    27,    85,    32,
       86,    26,    89,    34,    33,    33,   101,    14,    14,    33,
       36,    38,    33,     6,    32,    38,    35,    37,    33,    33,
@@ -720,43 +720,43 @@ static const yytype_int8 yycheck[] =
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     3,     4,     5,     7,     8,    28,    46,    49,    51,
+       0,     3,     4,     5,     7,     8,    28,    42,    47,    49,
       62,    63,    64,    65,    67,    69,    32,    32,    32,    32,
-      32,    32,    39,    44,    52,     0,    40,    28,    28,    29,
-      30,    31,    32,    42,    43,    45,    57,    59,    60,    57,
-      70,    72,    73,    73,    28,    68,    57,     9,    10,    11,
-      12,    13,    47,    53,    54,    55,    14,    49,    50,    33,
-      44,    57,    33,    17,    18,    19,    61,    15,    16,    58,
-      20,    21,    22,    23,    24,    25,    26,    27,    75,    27,
-      74,    26,    71,    33,    33,    14,    38,    33,    36,    14,
-      48,    57,    33,    59,    59,    59,    60,    60,    57,    70,
-      72,    34,    56,    56,    57,    73,    54,    57,    61,    61,
-      61,    58,    58,    74,    71,    49,     6,    66,    38,    37,
+      32,    32,    39,    45,    48,     0,    40,    28,    28,    29,
+      30,    31,    32,    43,    44,    46,    57,    59,    61,    57,
+      71,    73,    74,    74,    28,    68,    57,     9,    10,    11,
+      12,    13,    51,    52,    53,    55,    14,    49,    50,    33,
+      45,    57,    33,    15,    16,    58,    17,    18,    19,    60,
+      20,    21,    22,    23,    24,    25,    26,    27,    70,    27,
+      75,    26,    72,    33,    33,    14,    38,    33,    36,    14,
+      54,    57,    33,    59,    59,    61,    61,    61,    57,    71,
+      73,    34,    56,    56,    57,    74,    52,    57,    58,    58,
+      60,    60,    60,    75,    72,    49,     6,    66,    38,    37,
       35,    56,    68,    32,    33,    57,    56,    33
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    41,    42,    42,    42,    43,    44,    44,    45,    45,
-      46,    47,    48,    48,    49,    50,    50,    51,    51,    51,
-      51,    51,    52,    52,    53,    53,    54,    54,    54,    54,
-      55,    56,    57,    58,    58,    58,    59,    59,    60,    61,
-      61,    61,    61,    62,    62,    63,    64,    65,    66,    66,
-      67,    68,    69,    70,    71,    71,    72,    73,    74,    74,
-      75,    75,    75,    75,    75,    75,    75,    75
+       0,    41,    42,    43,    43,    43,    44,    45,    45,    46,
+      46,    47,    47,    47,    47,    47,    48,    48,    49,    50,
+      50,    51,    51,    52,    52,    52,    52,    53,    54,    54,
+      55,    56,    57,    58,    58,    58,    59,    60,    60,    60,
+      60,    61,    61,    62,    62,    63,    64,    65,    66,    66,
+      67,    68,    69,    70,    70,    70,    70,    70,    70,    70,
+      70,    71,    72,    72,    73,    74,    75,    75
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     1,     1,     2,     3,     0,     1,     1,
-       1,     2,     2,     0,     3,     1,     0,     2,     1,     1,
-       1,     1,     2,     3,     1,     1,     1,     1,     1,     1,
-       7,     3,     2,     3,     3,     0,     3,     1,     2,     3,
-       3,     3,     0,     1,     1,     4,     4,     6,     2,     0,
-       5,     3,     9,     2,     3,     0,     3,     2,     3,     0,
-       1,     1,     1,     1,     1,     1,     1,     1
+       0,     2,     1,     1,     1,     1,     2,     3,     0,     1,
+       1,     2,     1,     1,     1,     1,     2,     3,     3,     1,
+       0,     1,     1,     1,     1,     1,     1,     2,     2,     0,
+       7,     3,     2,     3,     3,     0,     2,     3,     3,     3,
+       0,     3,     1,     1,     1,     4,     4,     6,     2,     0,
+       5,     3,     9,     1,     1,     1,     1,     1,     1,     1,
+       1,     2,     3,     0,     3,     2,     3,     0
 };
 
 
@@ -1219,171 +1219,171 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 2: /* constant: INTCONSTANT  */
+  case 2: /* program: stmtlist  */
 #line 58 "cat.y"
-                            { printf("constant -> intconstant\n"); }
+                    { printf("program -> stmtlist\n"); }
 #line 1226 "cat.tab.c"
     break;
 
-  case 3: /* constant: CHARCONSTANT  */
-#line 59 "cat.y"
-                            { printf("constant -> charconstant\n"); }
+  case 3: /* constant: INTCONSTANT  */
+#line 61 "cat.y"
+                            { printf("constant -> intconstant\n"); }
 #line 1232 "cat.tab.c"
     break;
 
-  case 4: /* constant: STRINGCONSTANT  */
-#line 60 "cat.y"
-                            { printf("constant -> stringconstant\n"); }
+  case 4: /* constant: CHARCONSTANT  */
+#line 62 "cat.y"
+                            { printf("constant -> charconstant\n"); }
 #line 1238 "cat.tab.c"
     break;
 
-  case 5: /* var: IDENTIFIER op_arr  */
+  case 5: /* constant: STRINGCONSTANT  */
 #line 63 "cat.y"
-                        { printf("Variable -> IDENTIFIER OptionalArray\n"); }
+                            { printf("constant -> stringconstant\n"); }
 #line 1244 "cat.tab.c"
     break;
 
-  case 6: /* op_arr: SQUAREBRACKET_OPEN expression SQUAREBRACKET_CLOSE  */
+  case 6: /* var: IDENTIFIER arr  */
 #line 66 "cat.y"
-                                                                { printf("op_arr -> [ expression ]\n"); }
+                     { printf("Variable -> IDENTIFIER OptionalArray\n"); }
 #line 1250 "cat.tab.c"
     break;
 
-  case 7: /* op_arr: %empty  */
-#line 67 "cat.y"
-                                                                { printf("op_arr -> epsilon\n"); }
+  case 7: /* arr: SQUAREBRACKET_OPEN expression SQUAREBRACKET_CLOSE  */
+#line 69 "cat.y"
+                                                             { printf("arr -> [ expression ]\n"); }
 #line 1256 "cat.tab.c"
     break;
 
-  case 8: /* value: constant  */
+  case 8: /* arr: %empty  */
 #line 70 "cat.y"
-                 { printf("value -> constant\n"); }
+                                                             { printf("arr -> epsilon\n"); }
 #line 1262 "cat.tab.c"
     break;
 
-  case 9: /* value: var  */
-#line 71 "cat.y"
-                 { printf("value -> var\n"); }
+  case 9: /* value: constant  */
+#line 73 "cat.y"
+                 { printf("value -> constant\n"); }
 #line 1268 "cat.tab.c"
     break;
 
-  case 10: /* program: stmtlist  */
+  case 10: /* value: var  */
 #line 74 "cat.y"
-                    { printf("program -> stmtlist\n"); }
+                 { printf("value -> var\n"); }
 #line 1274 "cat.tab.c"
     break;
 
-  case 11: /* declaration: type op_assign  */
+  case 11: /* stmt: IDENTIFIER stmttail  */
 #line 77 "cat.y"
-                             { printf("declaration -> type op_assign\n"); }
+                           { printf("stmt -> IDENTIFIER stmttail\n"); }
 #line 1280 "cat.tab.c"
     break;
 
-  case 12: /* op_assign: ARROW expression  */
-#line 80 "cat.y"
-                             { printf("op_assign -> -> expression\n"); }
+  case 12: /* stmt: iostmt  */
+#line 78 "cat.y"
+                           { printf("stmt -> iostmt\n"); }
 #line 1286 "cat.tab.c"
     break;
 
-  case 13: /* op_assign: %empty  */
-#line 81 "cat.y"
-                             { printf("op_assign -> epsilon\n"); }
+  case 13: /* stmt: ifstmt  */
+#line 79 "cat.y"
+                           { printf("stmt -> ifstmt\n"); }
 #line 1292 "cat.tab.c"
     break;
 
-  case 14: /* stmtlist: stmt SEMICOLON stmtlisttail  */
-#line 84 "cat.y"
-                                       { printf("stmtlist -> stmt ; stmtlisttail\n"); }
+  case 14: /* stmt: whilestmt  */
+#line 80 "cat.y"
+                           { printf("stmt -> whilestmt\n"); }
 #line 1298 "cat.tab.c"
     break;
 
-  case 15: /* stmtlisttail: stmtlist  */
-#line 87 "cat.y"
-                        { printf("stmtlist -> stmtlist\n"); }
+  case 15: /* stmt: forstmt  */
+#line 81 "cat.y"
+                           { printf("stmt -> forstmt\n"); }
 #line 1304 "cat.tab.c"
     break;
 
-  case 16: /* stmtlisttail: %empty  */
-#line 88 "cat.y"
-                        { printf("stmtlist -> epsilon\n"); }
+  case 16: /* stmttail: COLON declaration  */
+#line 84 "cat.y"
+                                          { printf("stmttail -> : declaration\n"); }
 #line 1310 "cat.tab.c"
     break;
 
-  case 17: /* stmt: IDENTIFIER stmttail  */
-#line 91 "cat.y"
-                           { printf("stmt -> IDENTIFIER stmttail\n"); }
+  case 17: /* stmttail: arr ARROW expression  */
+#line 85 "cat.y"
+                                    { printf("stmttail -> arr -> expression\n"); }
 #line 1316 "cat.tab.c"
     break;
 
-  case 18: /* stmt: iostmt  */
-#line 92 "cat.y"
-                           { printf("stmt -> iostmt\n"); }
+  case 18: /* stmtlist: stmt SEMICOLON stmtlisttail  */
+#line 88 "cat.y"
+                                       { printf("stmtlist -> stmt ; stmtlisttail\n"); }
 #line 1322 "cat.tab.c"
     break;
 
-  case 19: /* stmt: ifstmt  */
-#line 93 "cat.y"
-                           { printf("stmt -> ifstmt\n"); }
+  case 19: /* stmtlisttail: stmtlist  */
+#line 91 "cat.y"
+                        { printf("stmtlist -> stmtlist\n"); }
 #line 1328 "cat.tab.c"
     break;
 
-  case 20: /* stmt: whilestmt  */
-#line 94 "cat.y"
-                           { printf("stmt -> whilestmt\n"); }
+  case 20: /* stmtlisttail: %empty  */
+#line 92 "cat.y"
+                        { printf("stmtlist -> epsilon\n"); }
 #line 1334 "cat.tab.c"
     break;
 
-  case 21: /* stmt: forstmt  */
+  case 21: /* type: primitive_type  */
 #line 95 "cat.y"
-                           { printf("stmt -> forstmt\n"); }
+                                     { printf("type -> primitive_type\n"); }
 #line 1340 "cat.tab.c"
     break;
 
-  case 22: /* stmttail: COLON declaration  */
-#line 98 "cat.y"
-                                          { printf("stmttail -> : declaration\n"); }
+  case 22: /* type: arraydecl  */
+#line 96 "cat.y"
+                                     { printf("type -> arraydecl\n"); }
 #line 1346 "cat.tab.c"
     break;
 
-  case 23: /* stmttail: op_arr ARROW expression  */
+  case 23: /* primitive_type: INTEGER  */
 #line 99 "cat.y"
-                                       { printf("stmttail -> op_arr -> expression\n"); }
+                                     { printf("primitive_type -> integer\n"); }
 #line 1352 "cat.tab.c"
     break;
 
-  case 24: /* type: primitive_type  */
-#line 102 "cat.y"
-                                     { printf("type -> primitive_type\n"); }
+  case 24: /* primitive_type: BOOLEAN  */
+#line 100 "cat.y"
+                                     { printf("primitive_type -> boolean\n"); }
 #line 1358 "cat.tab.c"
     break;
 
-  case 25: /* type: arraydecl  */
-#line 103 "cat.y"
-                                     { printf("type -> arraydecl\n"); }
+  case 25: /* primitive_type: CHARACTER  */
+#line 101 "cat.y"
+                                     { printf("primitive_type -> character\n"); }
 #line 1364 "cat.tab.c"
     break;
 
-  case 26: /* primitive_type: INTEGER  */
-#line 106 "cat.y"
-                                     { printf("primitive_type -> integer\n"); }
+  case 26: /* primitive_type: STRING  */
+#line 102 "cat.y"
+                                     { printf("primitive_type -> string\n"); }
 #line 1370 "cat.tab.c"
     break;
 
-  case 27: /* primitive_type: BOOLEAN  */
-#line 107 "cat.y"
-                                     { printf("primitive_type -> boolean\n"); }
+  case 27: /* declaration: type assign  */
+#line 105 "cat.y"
+                          { printf("declaration -> type assign\n"); }
 #line 1376 "cat.tab.c"
     break;
 
-  case 28: /* primitive_type: CHARACTER  */
+  case 28: /* assign: ARROW expression  */
 #line 108 "cat.y"
-                                     { printf("primitive_type -> character\n"); }
+                          { printf("assign -> -> expression\n"); }
 #line 1382 "cat.tab.c"
     break;
 
-  case 29: /* primitive_type: STRING  */
+  case 29: /* assign: %empty  */
 #line 109 "cat.y"
-                                     { printf("primitive_type -> string\n"); }
+                          { printf("assign -> epsilon\n"); }
 #line 1388 "cat.tab.c"
     break;
 
@@ -1423,195 +1423,195 @@ yyreduce:
 #line 1424 "cat.tab.c"
     break;
 
-  case 36: /* factor: SQUAREBRACKET_OPEN expression SQUAREBRACKET_CLOSE  */
-#line 126 "cat.y"
-                                                          { printf("factor -> [ Expression ]\n"); }
+  case 36: /* term: factor termtail  */
+#line 125 "cat.y"
+                       { printf("term -> factor termtail\n"); }
 #line 1430 "cat.tab.c"
     break;
 
-  case 37: /* factor: value  */
-#line 127 "cat.y"
-                                                          { printf("factor -> value\n"); }
+  case 37: /* termtail: MUL factor termtail  */
+#line 128 "cat.y"
+                               { printf("termtail -> MUL factor termtail\n"); }
 #line 1436 "cat.tab.c"
     break;
 
-  case 38: /* term: factor termtail  */
-#line 130 "cat.y"
-                       { printf("term -> factor termtail\n"); }
+  case 38: /* termtail: DIV factor termtail  */
+#line 129 "cat.y"
+                              { printf("termtail -> DIV factor termtail\n"); }
 #line 1442 "cat.tab.c"
     break;
 
-  case 39: /* termtail: MUL factor termtail  */
-#line 133 "cat.y"
-                               { printf("termtail -> MUL factor termtail\n"); }
+  case 39: /* termtail: MOD factor termtail  */
+#line 130 "cat.y"
+                              { printf("termtail -> MOD factor termtail\n"); }
 #line 1448 "cat.tab.c"
     break;
 
-  case 40: /* termtail: DIV factor termtail  */
-#line 134 "cat.y"
-                              { printf("termtail -> DIV factor termtail\n"); }
+  case 40: /* termtail: %empty  */
+#line 131 "cat.y"
+                              { printf("termtail -> epsilon\n"); }
 #line 1454 "cat.tab.c"
     break;
 
-  case 41: /* termtail: MOD factor termtail  */
-#line 135 "cat.y"
-                              { printf("termtail -> MOD factor termtail\n"); }
+  case 41: /* factor: SQUAREBRACKET_OPEN expression SQUAREBRACKET_CLOSE  */
+#line 134 "cat.y"
+                                                          { printf("factor -> [ Expression ]\n"); }
 #line 1460 "cat.tab.c"
     break;
 
-  case 42: /* termtail: %empty  */
-#line 136 "cat.y"
-                              { printf("termtail -> epsilon\n"); }
+  case 42: /* factor: value  */
+#line 135 "cat.y"
+                                                          { printf("factor -> value\n"); }
 #line 1466 "cat.tab.c"
     break;
 
   case 43: /* iostmt: readstmt  */
-#line 139 "cat.y"
+#line 138 "cat.y"
                    { printf("iostmt -> readstmt\n"); }
 #line 1472 "cat.tab.c"
     break;
 
   case 44: /* iostmt: writestmt  */
-#line 140 "cat.y"
+#line 139 "cat.y"
                    { printf("iostmt -> writestmt\n"); }
 #line 1478 "cat.tab.c"
     break;
 
   case 45: /* readstmt: READ SQUAREBRACKET_OPEN IDENTIFIER SQUAREBRACKET_CLOSE  */
-#line 143 "cat.y"
+#line 142 "cat.y"
                                                                   { printf("readstmt -> read [ IDENTIFIER ]\n"); }
 #line 1484 "cat.tab.c"
     break;
 
   case 46: /* writestmt: WRITE SQUAREBRACKET_OPEN expression SQUAREBRACKET_CLOSE  */
-#line 146 "cat.y"
+#line 145 "cat.y"
                                                                         { printf("writestmt -> write [ IDENTIFIER ]\n"); }
 #line 1490 "cat.tab.c"
     break;
 
   case 47: /* ifstmt: IF SQUAREBRACKET_OPEN conditions SQUAREBRACKET_CLOSE cmpstmt elsestmt  */
-#line 149 "cat.y"
-                                                                                                       { printf("ifstmt -> if [ conditions ] cmpstmt \n"); }
+#line 148 "cat.y"
+                                                                                 { printf("ifstmt -> if [ conditions ] cmpstmt \n"); }
 #line 1496 "cat.tab.c"
     break;
 
   case 48: /* elsestmt: OTHERWISE cmpstmt  */
-#line 152 "cat.y"
+#line 151 "cat.y"
                              { printf("elsestmt -> OTHERWISE cmpstmt\n"); }
 #line 1502 "cat.tab.c"
     break;
 
   case 49: /* elsestmt: %empty  */
-#line 153 "cat.y"
+#line 152 "cat.y"
                        { printf("elsestmt -> epsilon\n"); }
 #line 1508 "cat.tab.c"
     break;
 
   case 50: /* whilestmt: LOOPWHILE SQUAREBRACKET_OPEN conditions SQUAREBRACKET_CLOSE cmpstmt  */
-#line 156 "cat.y"
+#line 155 "cat.y"
                                                                                 { printf("whilestmt -> while [ conditions ] cmpstmt\n"); }
 #line 1514 "cat.tab.c"
     break;
 
   case 51: /* assignstmt: IDENTIFIER ARROW expression  */
-#line 159 "cat.y"
+#line 158 "cat.y"
                                          { printf("assignstmt -> IDENTIFIER -> expression\n"); }
 #line 1520 "cat.tab.c"
     break;
 
   case 52: /* forstmt: LOOPFOR SQUAREBRACKET_OPEN assignstmt COMMA conditions COMMA assignstmt SQUAREBRACKET_CLOSE cmpstmt  */
-#line 162 "cat.y"
+#line 161 "cat.y"
                                                                                                               { printf("forstmt -> for [assignstmt, conditions, assignstmt] cmpstmt \n"); }
 #line 1526 "cat.tab.c"
     break;
 
-  case 53: /* condition: simplecondition conditiontail  */
-#line 165 "cat.y"
-                                         { printf("condition -> simplecondition conditiontail\n"); }
+  case 53: /* RELATION: GE  */
+#line 164 "cat.y"
+                        { printf("RELATION -> >=\n"); }
 #line 1532 "cat.tab.c"
     break;
 
-  case 54: /* conditiontail: AND simplecondition conditiontail  */
-#line 168 "cat.y"
-                                                 { printf("conditiontail -> AND simplecondition conditionTail\n"); }
+  case 54: /* RELATION: LE  */
+#line 165 "cat.y"
+                        { printf("RELATION -> <=\n"); }
 #line 1538 "cat.tab.c"
     break;
 
-  case 55: /* conditiontail: %empty  */
-#line 169 "cat.y"
-                                                 { printf("conditiontail -> epsilon\n"); }
+  case 55: /* RELATION: GT  */
+#line 166 "cat.y"
+                        { printf("RELATION -> >\n"); }
 #line 1544 "cat.tab.c"
     break;
 
-  case 56: /* simplecondition: expression RELATION expression  */
-#line 172 "cat.y"
-                                                { printf("simplecondition -> expression Relation expression\n"); }
+  case 56: /* RELATION: LT  */
+#line 167 "cat.y"
+                        { printf("RELATION -> <\n"); }
 #line 1550 "cat.tab.c"
     break;
 
-  case 57: /* conditions: condition conditionstail  */
-#line 175 "cat.y"
-                                     { printf("conditions -> condition conditiontail\n"); }
+  case 57: /* RELATION: EQ  */
+#line 168 "cat.y"
+                        { printf("RELATION -> =\n"); }
 #line 1556 "cat.tab.c"
     break;
 
-  case 58: /* conditionstail: OR condition conditionstail  */
-#line 178 "cat.y"
-                                            { printf("conditionstail -> OR condition conditionstail\n"); }
+  case 58: /* RELATION: NEQ  */
+#line 169 "cat.y"
+                        { printf("RELATION -> !=\n"); }
 #line 1562 "cat.tab.c"
     break;
 
-  case 59: /* conditionstail: %empty  */
-#line 179 "cat.y"
-                                            { printf("conditionstail -> epsilon\n"); }
+  case 59: /* RELATION: AND  */
+#line 170 "cat.y"
+                        { printf("RELATION -> &&\n"); }
 #line 1568 "cat.tab.c"
     break;
 
-  case 60: /* RELATION: GE  */
-#line 182 "cat.y"
-                        { printf("RELATION -> >=\n"); }
+  case 60: /* RELATION: OR  */
+#line 171 "cat.y"
+                        { printf("RELATION -> ||\n"); }
 #line 1574 "cat.tab.c"
     break;
 
-  case 61: /* RELATION: LE  */
-#line 183 "cat.y"
-                        { printf("RELATION -> <=\n"); }
+  case 61: /* condition: simplecond conditiontail  */
+#line 174 "cat.y"
+                                    { printf("condition -> simplecond conditiontail\n"); }
 #line 1580 "cat.tab.c"
     break;
 
-  case 62: /* RELATION: GT  */
-#line 184 "cat.y"
-                        { printf("RELATION -> >\n"); }
+  case 62: /* conditiontail: AND simplecond conditiontail  */
+#line 177 "cat.y"
+                                            { printf("conditiontail -> AND simplecond conditiontail\n"); }
 #line 1586 "cat.tab.c"
     break;
 
-  case 63: /* RELATION: LT  */
-#line 185 "cat.y"
-                        { printf("RELATION -> <\n"); }
+  case 63: /* conditiontail: %empty  */
+#line 178 "cat.y"
+                                                 { printf("conditiontail -> epsilon\n"); }
 #line 1592 "cat.tab.c"
     break;
 
-  case 64: /* RELATION: EQ  */
-#line 186 "cat.y"
-                        { printf("RELATION -> =\n"); }
+  case 64: /* simplecond: expression RELATION expression  */
+#line 181 "cat.y"
+                                           { printf("simplecond -> expression RELATION expression\n"); }
 #line 1598 "cat.tab.c"
     break;
 
-  case 65: /* RELATION: NEQ  */
-#line 187 "cat.y"
-                        { printf("RELATION -> !=\n"); }
+  case 65: /* conditions: condition conditionstail  */
+#line 184 "cat.y"
+                                     { printf("conditions -> condition conditiontail\n"); }
 #line 1604 "cat.tab.c"
     break;
 
-  case 66: /* RELATION: AND  */
-#line 188 "cat.y"
-                        { printf("RELATION -> &&\n"); }
+  case 66: /* conditionstail: OR condition conditionstail  */
+#line 187 "cat.y"
+                                            { printf("conditionstail -> OR condition conditionstail\n"); }
 #line 1610 "cat.tab.c"
     break;
 
-  case 67: /* RELATION: OR  */
-#line 189 "cat.y"
-                        { printf("RELATION -> ||\n"); }
+  case 67: /* conditionstail: %empty  */
+#line 188 "cat.y"
+                                            { printf("conditionstail -> epsilon\n"); }
 #line 1616 "cat.tab.c"
     break;
 
@@ -1809,14 +1809,14 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 192 "cat.y"
+#line 191 "cat.y"
 
 
 extern FILE *yyin;
 extern int yyparse(void);
 
 void yyerror(const char *s) {
-    printf("Parser error: %s\n", s);
+    printf("Parsing error: %s\n", s);
 
     fclose(yyin);
     exit(1);
@@ -1824,14 +1824,14 @@ void yyerror(const char *s) {
 
 int main(int argc, char** argv) {
     if (argc > 2) {
-        printf("Usage: %s [file]\n", argv[0]);
+        printf("Too many arguments!\n");
         return 1;
     }
 
     if (argc == 2) {
         yyin = fopen(argv[1], "r");
         if (yyin == NULL) {
-            printf("Error: Could not open file %s\n", argv[1]);
+            printf("Unable to open %s\n", argv[1]);
             exit(1);
         }
     } else {
