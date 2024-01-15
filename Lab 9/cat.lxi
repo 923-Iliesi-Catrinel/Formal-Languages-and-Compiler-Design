@@ -1,0 +1,126 @@
+%{
+/* Declarations */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "cat.tab.h"
+
+int no_lines = 1;
+%}
+
+/* no more input after EOF */
+%option noyywrap noinput nounput
+
+/* Definitions */
+digit            [0-9]
+nonzero          [1-9]
+letter           [a-zA-Z]
+special_char     [ ~!#$%&'"+*/.,:;@^_`|~]
+
+identifier       @{letter}({letter}|{digit})*
+wrong_identifier ({digit})+(@{letter})+({letter}|{digit})*
+
+positive_int     \+?{nonzero}{digit}*
+negative_int     -{nonzero}{digit}*
+int_const        {positive_int}|{negative_int}|0
+char_const       (\'(\\[ntr\\"']|{letter}|{digit}|{special_char})\')
+string_const     (\"(\\[ntr\\"']|{letter}|{digit}|{special_char})*\")
+
+%%
+
+[ \t]+                  { /* Ignore tabs and spaces */ }
+
+"~"(.)*[\n|\r\n]+       { no_lines++; /* Handle comments */ }
+
+[\n|\r\n]+              { no_lines++; /* Handle newlines */ }
+
+"read"                  { printf("Reserved word: %s\n", yytext); return READ; }
+
+"write"                 { printf("Reserved word: %s\n", yytext); return WRITE; }
+
+"if"                    { printf("Reserved word: %s\n", yytext); return IF; }
+
+"otherwise"             { printf("Reserved word: %s\n", yytext); return OTHERWISE; }
+
+"loopwhile"             { printf("Reserved word: %s\n", yytext); return LOOPWHILE; }
+
+"loopfor"               { printf("Reserved word: %s\n", yytext); return LOOPFOR; }
+
+"integer"               { printf("Reserved word: %s\n", yytext); return INTEGER; }
+ 
+"boolean"               { printf("Reserved word: %s\n", yytext); return BOOLEAN; }
+
+"character"             { printf("Reserved word: %s\n", yytext); return CHARACTER; }
+
+"array"                 { printf("Reserved word: %s\n", yytext); return ARRAY; }
+
+"string"                { printf("Reserved word: %s\n", yytext); return STRING; }
+
+"->"                    { printf("Operator: %s\n", yytext); return ARROW; }
+
+"add"                   { printf("Operator: %s\n", yytext); return ADD; }
+
+"sub"                   { printf("Operator: %s\n", yytext); return SUB; }
+
+"mul"                   { printf("Operator: %s\n", yytext); return MUL; }
+
+"div"                   { printf("Operator: %s\n", yytext); return DIV; }
+
+"mod"                   { printf("Operator: %s\n", yytext); return MOD; }
+
+"<"                     { printf("Operator: %s\n", yytext); return LT; }
+
+"<="                    { printf("Operator: %s\n", yytext); return LE; }
+
+"eq"                    { printf("Operator: %s\n", yytext); return EQ; }
+
+"noteq"                 { printf("Operator: %s\n", yytext); return NEQ; }
+
+">="                    { printf("Operator: %s\n", yytext); return GE; }
+
+">"                     { printf("Operator: %s\n", yytext); return GT; }
+
+"and"                   { printf("Operator: %s\n", yytext); return AND; }
+
+"or"                    { printf("Operator: %s\n", yytext); return OR; }
+
+{identifier}            {
+                            if(strlen(yytext) > 255) {
+                                printf("Error: Identifier exceeds 255 characters at line %d\n", no_lines);
+                                return -1;
+                            }
+                                                                                           
+                            printf("Identifier: %s\n", yytext); 
+                            return IDENTIFIER;
+                        }
+
+{wrong_identifier}      { printf("Error: Invalid identifier format '%s' at line %d\n", yytext, no_lines); return -1; }
+
+{int_const}             { printf("Integer constant: %s\n", yytext); return INTCONSTANT; }
+
+{char_const}            { printf("Character constant: %s\n", yytext); return CHARCONSTANT; }
+
+{string_const}          { printf("String constant: %s\n", yytext); return STRINGCONSTANT; }
+
+"["                     { printf("Separator: %s\n", yytext); return SQUAREBRACKET_OPEN; }
+
+"]"                     { printf("Separator: %s\n", yytext); return SQUAREBRACKET_CLOSE; }
+
+"{"                     { printf("Separator: %s\n", yytext); return CURLYBRACKET_OPEN; }
+
+"}"                     { printf("Separator: %s\n", yytext); return CURLYBRACKET_CLOSE; }
+
+"("                     { printf("Separator: %s\n", yytext); return PARENTHESIS_OPEN; }
+
+")"                     { printf("Separator: %s\n", yytext); return PARENTHESIS_CLOSE; }
+
+","                     { printf("Separator: %s\n", yytext); return COMMA; }
+
+":"                     { printf("Separator: %s\n", yytext); return COLON; }
+
+";"                     { printf("Separator: %s\n", yytext); return SEMICOLON; }
+
+.                       { printf("Lexical error at line %d: Undefined token %s\n", no_lines, yytext); exit(1); /* Handle bad characters */ }
+
+%%

@@ -1,0 +1,320 @@
+Identifier: @isPrime
+Separator: :
+Reserved word: boolean
+primitive_type -> boolean
+type -> primitive_type
+Operator: ->
+Integer constant: 1
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ;
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+op_assign -> -> expression
+declaration -> type op_assign
+stmttail -> : declaration
+stmt -> IDENTIFIER stmttail
+Identifier: @n
+Separator: :
+Reserved word: integer
+primitive_type -> integer
+type -> primitive_type
+Separator: ;
+op_assign -> epsilon
+declaration -> type op_assign
+stmttail -> : declaration
+stmt -> IDENTIFIER stmttail
+Identifier: @i
+Separator: :
+Reserved word: integer
+primitive_type -> integer
+type -> primitive_type
+Separator: ;
+op_assign -> epsilon
+declaration -> type op_assign
+stmttail -> : declaration
+stmt -> IDENTIFIER stmttail
+Reserved word: read
+Separator: [
+Identifier: @n
+Separator: ]
+readstmt -> read [ IDENTIFIER ]
+iostmt -> readstmt
+stmt -> iostmt
+Separator: ;
+Reserved word: if
+Separator: [
+Identifier: @n
+Operator: <=
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+RELATION -> <=
+Integer constant: 1
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ]
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+simplecondition -> expression Relation expression
+conditiontail -> epsilon
+condition -> simplecondition conditiontail
+conditionstail -> epsilon
+conditions -> condition conditiontail
+Separator: {
+Identifier: @isPrime
+Operator: ->
+op_arr -> epsilon
+Integer constant: 0
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ;
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+stmttail -> op_arr -> expression
+stmt -> IDENTIFIER stmttail
+Separator: }
+stmtlist -> epsilon
+stmtlist -> stmt ; stmtlisttail
+cmpstmt -> { stmtlist }
+Reserved word: otherwise
+Separator: {
+Reserved word: loopfor
+Separator: [
+Identifier: @i
+Operator: ->
+Integer constant: 2
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ,
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+assignstmt -> IDENTIFIER -> expression
+Identifier: @i
+Operator: <=
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+RELATION -> <=
+Identifier: @n
+Operator: div
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+Integer constant: 2
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ,
+termtail -> epsilon
+termtail -> DIV factor termtail
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+simplecondition -> expression Relation expression
+conditiontail -> epsilon
+condition -> simplecondition conditiontail
+conditionstail -> epsilon
+conditions -> condition conditiontail
+Identifier: @i
+Operator: ->
+Identifier: @i
+Operator: add
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+termtail -> epsilon
+term -> factor termtail
+Integer constant: 1
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ]
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expressiontail -> ADD term expressiontail
+expression -> term expressiontail
+assignstmt -> IDENTIFIER -> expression
+Separator: {
+Reserved word: if
+Separator: [
+Identifier: @n
+Operator: mod
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+Identifier: @i
+Operator: eq
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+termtail -> epsilon
+termtail -> MOD factor termtail
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+RELATION -> =
+Integer constant: 0
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ]
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+simplecondition -> expression Relation expression
+conditiontail -> epsilon
+condition -> simplecondition conditiontail
+conditionstail -> epsilon
+conditions -> condition conditiontail
+Separator: {
+Identifier: @isPrime
+Operator: ->
+op_arr -> epsilon
+Integer constant: 0
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ;
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+stmttail -> op_arr -> expression
+stmt -> IDENTIFIER stmttail
+Separator: }
+stmtlist -> epsilon
+stmtlist -> stmt ; stmtlisttail
+cmpstmt -> { stmtlist }
+Separator: ;
+elsestmt -> epsilon
+ifstmt -> if [ conditions ] cmpstmt 
+stmt -> ifstmt
+Separator: }
+stmtlist -> epsilon
+stmtlist -> stmt ; stmtlisttail
+cmpstmt -> { stmtlist }
+forstmt -> for [assignstmt, conditions, assignstmt] cmpstmt 
+stmt -> forstmt
+Separator: ;
+Separator: }
+stmtlist -> epsilon
+stmtlist -> stmt ; stmtlisttail
+cmpstmt -> { stmtlist }
+elsestmt -> OTHERWISE cmpstmt
+ifstmt -> if [ conditions ] cmpstmt 
+stmt -> ifstmt
+Separator: ;
+Reserved word: if
+Separator: [
+Identifier: @isPrime
+Operator: eq
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+RELATION -> =
+Integer constant: 1
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ]
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+simplecondition -> expression Relation expression
+conditiontail -> epsilon
+condition -> simplecondition conditiontail
+conditionstail -> epsilon
+conditions -> condition conditiontail
+Separator: {
+Reserved word: write
+Separator: [
+String constant: "n is a prime number."
+constant -> stringconstant
+value -> constant
+factor -> value
+Separator: ]
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+writestmt -> write [ IDENTIFIER ]
+iostmt -> writestmt
+stmt -> iostmt
+Separator: ;
+Separator: }
+stmtlist -> epsilon
+stmtlist -> stmt ; stmtlisttail
+cmpstmt -> { stmtlist }
+Reserved word: otherwise
+Separator: {
+Reserved word: write
+Separator: [
+String constant: "n is not a prime number."
+constant -> stringconstant
+value -> constant
+factor -> value
+Separator: ]
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+writestmt -> write [ IDENTIFIER ]
+iostmt -> writestmt
+stmt -> iostmt
+Separator: ;
+Separator: }
+stmtlist -> epsilon
+stmtlist -> stmt ; stmtlisttail
+cmpstmt -> { stmtlist }
+elsestmt -> OTHERWISE cmpstmt
+ifstmt -> if [ conditions ] cmpstmt 
+stmt -> ifstmt
+Separator: ;
+stmtlist -> epsilon
+stmtlist -> stmt ; stmtlisttail
+stmtlist -> stmtlist
+stmtlist -> stmt ; stmtlisttail
+stmtlist -> stmtlist
+stmtlist -> stmt ; stmtlisttail
+stmtlist -> stmtlist
+stmtlist -> stmt ; stmtlisttail
+stmtlist -> stmtlist
+stmtlist -> stmt ; stmtlisttail
+stmtlist -> stmtlist
+stmtlist -> stmt ; stmtlisttail
+program -> stmtlist

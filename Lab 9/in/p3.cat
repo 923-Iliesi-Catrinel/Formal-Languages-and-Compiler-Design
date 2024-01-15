@@ -1,0 +1,16 @@
+~ Sum of n numbers
+@n: integer -> 0;
+@sum: integer -> 0;
+@i: integer -> 0;
+read[@n];
+
+loopwhile [@i < @n]
+{
+    @x : integer -> 0;
+    read[@x];
+
+    @sum -> @sum add @x;
+    @i -> @i add 1;
+};
+
+write[@sum];

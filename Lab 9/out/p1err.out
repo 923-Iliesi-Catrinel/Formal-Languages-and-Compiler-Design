@@ -1,0 +1,92 @@
+Identifier: @a
+Separator: :
+Reserved word: integer
+primitive_type -> integer
+type -> primitive_type
+Operator: ->
+Integer constant: 10
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ;
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+op_assign -> -> expression
+declaration -> type op_assign
+stmttail -> : declaration
+stmt -> IDENTIFIER stmttail
+Identifier: @b
+Separator: :
+Reserved word: integer
+primitive_type -> integer
+type -> primitive_type
+Operator: ->
+Integer constant: 20
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ;
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+op_assign -> -> expression
+declaration -> type op_assign
+stmttail -> : declaration
+stmt -> IDENTIFIER stmttail
+Identifier: @c
+Separator: :
+Reserved word: integer
+primitive_type -> integer
+type -> primitive_type
+Operator: ->
+Integer constant: 40
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ;
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+op_assign -> -> expression
+declaration -> type op_assign
+stmttail -> : declaration
+stmt -> IDENTIFIER stmttail
+Identifier: @max
+Separator: :
+Reserved word: integer
+primitive_type -> integer
+type -> primitive_type
+Operator: ->
+Identifier: @a
+Separator: ;
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+op_assign -> -> expression
+declaration -> type op_assign
+stmttail -> : declaration
+stmt -> IDENTIFIER stmttail
+Reserved word: if
+Separator: [
+Identifier: @max
+Operator: <
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+RELATION -> <
+Error: Invalid identifier format '1@b' at line 6
+Parser error: syntax error

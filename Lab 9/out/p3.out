@@ -1,0 +1,210 @@
+Identifier: @n
+Separator: :
+Reserved word: integer
+primitive_type -> integer
+type -> primitive_type
+Operator: ->
+Integer constant: 0
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ;
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+op_assign -> -> expression
+declaration -> type op_assign
+stmttail -> : declaration
+stmt -> IDENTIFIER stmttail
+Identifier: @sum
+Separator: :
+Reserved word: integer
+primitive_type -> integer
+type -> primitive_type
+Operator: ->
+Integer constant: 0
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ;
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+op_assign -> -> expression
+declaration -> type op_assign
+stmttail -> : declaration
+stmt -> IDENTIFIER stmttail
+Identifier: @i
+Separator: :
+Reserved word: integer
+primitive_type -> integer
+type -> primitive_type
+Operator: ->
+Integer constant: 0
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ;
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+op_assign -> -> expression
+declaration -> type op_assign
+stmttail -> : declaration
+stmt -> IDENTIFIER stmttail
+Reserved word: read
+Separator: [
+Identifier: @n
+Separator: ]
+readstmt -> read [ IDENTIFIER ]
+iostmt -> readstmt
+stmt -> iostmt
+Separator: ;
+Reserved word: loopwhile
+Separator: [
+Identifier: @i
+Operator: <
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+RELATION -> <
+Identifier: @n
+Separator: ]
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+simplecondition -> expression Relation expression
+conditiontail -> epsilon
+condition -> simplecondition conditiontail
+conditionstail -> epsilon
+conditions -> condition conditiontail
+Separator: {
+Identifier: @x
+Separator: :
+Reserved word: integer
+primitive_type -> integer
+type -> primitive_type
+Operator: ->
+Integer constant: 0
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ;
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+op_assign -> -> expression
+declaration -> type op_assign
+stmttail -> : declaration
+stmt -> IDENTIFIER stmttail
+Reserved word: read
+Separator: [
+Identifier: @x
+Separator: ]
+readstmt -> read [ IDENTIFIER ]
+iostmt -> readstmt
+stmt -> iostmt
+Separator: ;
+Identifier: @sum
+Operator: ->
+op_arr -> epsilon
+Identifier: @sum
+Operator: add
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+termtail -> epsilon
+term -> factor termtail
+Identifier: @x
+Separator: ;
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expressiontail -> ADD term expressiontail
+expression -> term expressiontail
+stmttail -> op_arr -> expression
+stmt -> IDENTIFIER stmttail
+Identifier: @i
+Operator: ->
+op_arr -> epsilon
+Identifier: @i
+Operator: add
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+termtail -> epsilon
+term -> factor termtail
+Integer constant: 1
+constant -> intconstant
+value -> constant
+factor -> value
+Separator: ;
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expressiontail -> ADD term expressiontail
+expression -> term expressiontail
+stmttail -> op_arr -> expression
+stmt -> IDENTIFIER stmttail
+Separator: }
+stmtlist -> epsilon
+stmtlist -> stmt ; stmtlisttail
+stmtlist -> stmtlist
+stmtlist -> stmt ; stmtlisttail
+stmtlist -> stmtlist
+stmtlist -> stmt ; stmtlisttail
+stmtlist -> stmtlist
+stmtlist -> stmt ; stmtlisttail
+cmpstmt -> { stmtlist }
+whilestmt -> while [ conditions ] cmpstmt
+stmt -> whilestmt
+Separator: ;
+Reserved word: write
+Separator: [
+Identifier: @sum
+Separator: ]
+op_arr -> epsilon
+Variable -> IDENTIFIER OptionalArray
+value -> var
+factor -> value
+termtail -> epsilon
+term -> factor termtail
+expressiontail -> epsilon
+expression -> term expressiontail
+writestmt -> write [ IDENTIFIER ]
+iostmt -> writestmt
+stmt -> iostmt
+Separator: ;
+stmtlist -> epsilon
+stmtlist -> stmt ; stmtlisttail
+stmtlist -> stmtlist
+stmtlist -> stmt ; stmtlisttail
+stmtlist -> stmtlist
+stmtlist -> stmt ; stmtlisttail
+stmtlist -> stmtlist
+stmtlist -> stmt ; stmtlisttail
+stmtlist -> stmtlist
+stmtlist -> stmt ; stmtlisttail
+stmtlist -> stmtlist
+stmtlist -> stmt ; stmtlisttail
+program -> stmtlist
